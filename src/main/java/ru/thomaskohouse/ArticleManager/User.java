@@ -1,9 +1,14 @@
 package ru.thomaskohouse.ArticleManager;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -11,20 +16,11 @@ public class User {
     Long id;
 
     String name;
+    String lastName;
+    String middleName;
 
-    public Long getId() {
-        return id;
-    }
+    @Email
+    String email;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
