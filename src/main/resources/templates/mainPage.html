@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Articles</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/styles.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h2>Что вершит судьбу человечества в этом мире? Некое незримое существо или закон, подобно длани господней, парящей над миром?<br>
+        По крайней мере, истинно то, что человек не властен даже над своей волей.</h2>
+    <div class = "elements_container">
+        <tbody>
+            <tr th:each="article : ${articles}">
+                <div class="list_element">
+                    <div class = "article_id">
+                        <td th:text = "${article.id}"></td>
+                    </div>
+                    <div class = "article_head">
+                        <a th:href="@{${article.id}}"><td th:text = "${article.head}"></td></a>
+                    </div>
+                    <div class = "article_creation">
+                        <td th:text = "${{article.creationDateTime}}"></td>
+                    </div>
+                </div>
+            </tr>
+        </tbody>
+    </div>
+</body>
+
+<footer>
+    <hr/>
+    <p>developed by andrey oskin, 2023</p>
+</footer>
+</html>

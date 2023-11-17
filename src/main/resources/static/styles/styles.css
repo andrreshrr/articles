@@ -1,0 +1,80 @@
+* {
+    overflow-x: hidden;
+    font-family: "Roboto", sans-serif;
+
+}
+
+h2 {
+    font-size: 120%;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.list_element {
+    font-size: 200%;
+    width: 100%;
+    display: block ruby;
+
+    margin-bottom: 0.5%;
+}
+
+*.elements_container {
+    margin-inline-start: 20%;
+    margin-top: 3%;
+}
+
+*.article_id {
+   text-align: left;
+   width: 2%;
+}
+
+*.article_head {
+    margin-inline-start: 10%;
+    width: 50%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #92A88C;
+}
+
+*.article_head:hover {
+    margin-inline-start: 10%;
+    width: 50%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: white;
+
+}
+
+*.article_creation {
+    color: black;
+    text-align: right;
+
+}
+
+a {
+    font-size: 110%;
+}
+a:link, a:visited {
+  color: #92A88C;
+}
+a:hover {
+  text-decoration: none;
+  background: #92A88C;
+  color: white;
+}
+
+hr {
+    align: center;
+    width: 70%;
+    size: 10;
+    color: #D3D3D3;
+}
+
+footer {
+    font-color: #D3D3D3;
+    overflow-x: hidden;
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    width:99%;
+}
