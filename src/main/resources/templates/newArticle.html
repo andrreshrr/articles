@@ -11,29 +11,33 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js">
     </script>
     <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 650px;
+            max-height: 650px;
+        }
+    </style>
+
 </head>
 <body>
-<div th:insert="head.html :: body"> </div>
-<div style="text-align: center">
-    <h1>write page</h1>
-    <form  th:action="@{/createDiary}" th:object="${Diary}" method="post">
-        <p>writer : <input type="text" th:field="*{writer}"/></p>
-        <p>title : <input type="text" th:field="*{title}"/></p>
-        <p>content : <input  style="width: 300px; height: 300px;" type="text" th:field="*{content}"/></p>
-        <p><input type="submit" value="add"/> <input type="reset" value="reset"/></p>
+    <form method="post" th:action="@{~/articles/create}" th:object="${articleInfo}">
+        <div th:insert="head.html :: body"> </div>
+        <div id="editor" th:field="articleText">some text</div>
+        <div class="buttons_container">
+            <a class="big_button thin" style="margin-right: 3%; padding-inline: 4%;" href="@{/articles/1}">Cancel</a>
+            <input class="big_button thin" type="submit" value="Create">
+        </div>
     </form>
-</div>
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#content' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 </body>
 
-<footer>
-    <hr/>
-    <p>developed by andrey oskin, 2023</p>
-</footer>
+
 </html>

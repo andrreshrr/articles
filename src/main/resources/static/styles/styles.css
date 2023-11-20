@@ -110,6 +110,46 @@ li.button a {
     text-align: center;
 }
 
+a.big_button {
+    border: #92A88C;
+    color: #92A88C;
+    border-style: solid;
+    border-width: thin;
+    text-decoration: none;
+    padding: 0.5%;
+    display: inline-block;
+    width: 5%;
+    text-align: center;
+    padding-inline: 5%;
+}
+
+input[type=submit] {
+      border: #92A88C;
+      color: #92A88C;
+      border-style: solid;
+      border-width: thin;
+      text-decoration: none;
+      padding: 0.5%;
+      display: inline-block;
+      text-align: center;
+      padding-inline: 5%;
+      font-size: 110%;
+      text-align: left;
+      background-color: white;
+}
+input[type=submit]:hover {
+      background-color: #92A88C;
+      color: white;
+      cursor: pointer;
+}
+
+*.buttons_container {
+    margin-top: 2%;
+    text-align: right;
+    margin-right: 5%;
+
+}
+
 .icon {
     padding-right: 10%;
 }
