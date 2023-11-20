@@ -55,6 +55,12 @@ div.list_element {
     margin-bottom: 0.5%;
 }
 
+div.page_navigation {
+    color: blue;
+    text-align: center;
+    font-size: 150%;
+}
+
 *.thin {
     font-weight: 500;
 }
@@ -119,7 +125,7 @@ footer {
     color: #313131;
     font-weight: lighter;
     overflow-x: hidden;
-
+    position: absolute;
     text-align: center;
     bottom: 0;
     width:99%;
