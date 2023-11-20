@@ -22,9 +22,12 @@
 
 </head>
 <body>
-    <form method="post" th:action="@{~/articles/create}" th:object="${articleInfo}">
-        <div th:insert="head.html :: body"> </div>
-        <div id="editor" th:field="articleText">some text</div>
+    <div th:insert="head.html :: body"> </div>
+    <form method="post" th:action="@{/article/create}" th:object="${article}">
+
+        <input id="head" required type="text" th:field="*{head}"/>
+        <input id="author" required type="text" th:field="*{author}"/>
+        <textarea id="body"  th:field="*{body}"/>
         <div class="buttons_container">
             <a class="big_button thin" style="margin-right: 3%; padding-inline: 4%;" href="@{/articles/1}">Cancel</a>
             <input class="big_button thin" type="submit" value="Create">
@@ -32,7 +35,7 @@
     </form>
     <script>
         ClassicEditor
-            .create( document.querySelector( '#editor' ) )
+            .create( document.querySelector( '#body' ) )
             .catch( error => {
                 console.error( error );
             } );
