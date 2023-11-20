@@ -24,13 +24,6 @@ public class ArticleManagerController {
     @Autowired
     ArticleManagerService service;
 
-    @GetMapping("artiicles")
-    public String mainPage(Model model){
-        List<Article> articles = (List<Article>) articlesRepository.findAll();
-        model.addAttribute("articles", articles);
-        return "mainPage";
-    }
-
     @GetMapping("articles/{pageNum}")
     public String articlesPage(Model model, @PathVariable Optional<Integer> pageNum){
         int currentPage = pageNum.orElse(1);
@@ -62,5 +55,10 @@ public class ArticleManagerController {
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         return "greeting";
+    }
+
+    @GetMapping("/articles/new")
+    public String writeArticle(Model model){
+        return "newArticle";
     }
 }

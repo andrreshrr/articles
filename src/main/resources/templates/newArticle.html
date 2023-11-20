@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Articles</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/styles.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js">
+    </script>
+    <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:insert="head.html :: body"> </div>
+<div style="text-align: center">
+    <h1>write page</h1>
+    <form  th:action="@{/createDiary}" th:object="${Diary}" method="post">
+        <p>writer : <input type="text" th:field="*{writer}"/></p>
+        <p>title : <input type="text" th:field="*{title}"/></p>
+        <p>content : <input  style="width: 300px; height: 300px;" type="text" th:field="*{content}"/></p>
+        <p><input type="submit" value="add"/> <input type="reset" value="reset"/></p>
+    </form>
+</div>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#content' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+</body>
+
+<footer>
+    <hr/>
+    <p>developed by andrey oskin, 2023</p>
+</footer>
+</html>

@@ -10,10 +10,11 @@
 </head>
 <body>
     <ul>
-        <li class = "first_element margin thin"><a href = "google.com"><i class=" little_margin fa-regular fa-rectangle-list fa-xl"></i>List</a></li>
-        <li class = "margin"><div class = "welcome">Welcome! To our library!</div></li>
-        <li class = "little_margin thin"> <a href = "google.com">Login</a> </li>
-        <li class = "last_element thin"> <a href = "google.com">Register </a></li>
+        <li class = "little_margin thin button"><a th:href = "@{/articles/1}"><i class="fa-regular fa-rectangle-list fa-xl icon"></i>List</a></li>
+        <li class = "margin thin button"><a th:href="@{/articles/new}"><i class="fa-solid fa-pen icon"></i>Write</a></li>
+        <li class = "margin "><div class = "welcome">Welcome! To our library!</div></li>
+        <li class = "little_margin thin button"> <a href = "google.com">Login</a> </li>
+        <li class = "last_element thin button"> <a href = "google.com">Register </a></li>
     </ul>
     <hr class = "head"/>
 </body>
