@@ -17,7 +17,10 @@
         По крайней мере, истинно то, что человек не властен даже над своей волей.</h2>
     <div class="page_navigation">
         <tr th:each="pageNumber : ${pageNumbers}">
-            <a th:href="@{${pageNumber}}"><td th:text = "${pageNumber}"></a>
+
+            <a th:if="${pageNumber}!=${currentPage}" th:href="@{${pageNumber}}"><td th:text = "${pageNumber}"></a>
+            <rr class = "selected_page" th:if="${pageNumber}==${currentPage}"><td th:text = "${pageNumber}"/></rr>
+
         </tr>
     </div>
 
@@ -26,13 +29,13 @@
             <tr th:each="article, iStat : ${articlePage.content}">
                 <div class="list_element">
                     <div class = "article_id">
-                        <td th:text = "${article.id}"></td>
+                        <i class="fa-regular fa-user icon"></i><td th:text = "${article.author.name}"></td>
                     </div>
                     <div class = "article_head">
                         <a th:href="@{/article/{id}(id=${article.id})}"><td th:text = "${article.head}"></td></a>
                     </div>
                     <div class = "article_creation">
-                        <td th:text = "${{article.creationDateTime}}"></td>
+                        <i class="fa-regular fa-calendar-days icon"></i><td th:text = "${{article.creationDateTime}}"></td>
                     </div>
                 </div>
             </tr>

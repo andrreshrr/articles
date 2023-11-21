@@ -14,12 +14,19 @@
 <body>
 <div th:insert="head.html :: body"> </div>
 
-<h1 th:text = "${article.head}"/>
+<div class = "article_container">
+    <h1 th:text = "${article.head}"/>
+    <div class = "head2">
+        <div class = "article_id">
+            <i class="fa-regular fa-user little_margin"></i><td th:text = "${author.name}"></td>
+        </div>
+        <div class = "article_creation">
+            <i class="fa-regular fa-calendar-days little_margin"></i><td th:text = "${{article.creationDateTime}}"></td>
+        </div>
+    </div>
 
-<td th:text = "${author.name}"/> <td th:text = "${article.creationDateTime}"/>
-
-<td th:text = "${article.body}"/>
-
+    <div class = "article_body"> <td th:utext = "${article.body}"/> </div>
+</div>
 </body>
 
 <footer>

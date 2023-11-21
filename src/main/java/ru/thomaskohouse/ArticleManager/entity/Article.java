@@ -1,4 +1,4 @@
-package ru.thomaskohouse.ArticleManager;
+package ru.thomaskohouse.ArticleManager.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

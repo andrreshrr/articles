@@ -11,25 +11,23 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js">
     </script>
     <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
-
+    <script type="text/javascript" th:src="@{/js/ckeditor/ckeditor.js}"></script>
     <style>
         .ck-editor__editable_inline {
-            min-height: 650px;
-            max-height: 650px;
+            min-height: 450px;
         }
     </style>
 
 </head>
 <body>
     <div th:insert="head.html :: body"> </div>
-    <form method="post" th:action="@{/article/create}" th:object="${article}">
-
-        <input id="head" required type="text" th:field="*{head}"/>
-        <input id="author" required type="text" th:field="*{author}"/>
-        <textarea id="body"  th:field="*{body}"/>
+    <form method="post" th:action="@{/article/new}" th:object="${article}">
+       <input id="head" required type="text" th:field="*{head}" placeholder="Article title"/>
+       <div class="article_body">
+         <textarea id="body" th:field="*{body}" placeholder="Article body"/>
+       </div>
         <div class="buttons_container">
-            <a class="big_button thin" style="margin-right: 3%; padding-inline: 4%;" href="@{/articles/1}">Cancel</a>
+            <a class="big_button thin" style="margin-right: 3%; padding-inline: 4%;" th:href="@{~/articles/1}">Cancel</a>
             <input class="big_button thin" type="submit" value="Create">
         </div>
     </form>
