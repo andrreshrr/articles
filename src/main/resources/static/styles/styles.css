@@ -114,7 +114,11 @@ div.list_element > *.article_creation {
 }
 
 *.article_container {
-    margin-inline: 10%;
+      margin-inline: 10%;
+      border-left: 2px #92A88C ridge;
+      padding-left: 3%;
+      margin-left: 7%;
+      font-size: 120%;
 }
 
 div.article_body > * {

@@ -10,4 +10,5 @@ public class ArticleManagerApplication {
 		SpringApplication.run(ArticleManagerApplication.class, args);
 	}
 
+
 }
