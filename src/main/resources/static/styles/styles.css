@@ -153,6 +153,39 @@ a.big_button {
     padding-inline: 5%;
 }
 
+li.refuse_button > a {
+        border: darksalmon;
+        color: darksalmon;
+       border-style: solid;
+       border-width: thin;
+       text-decoration: none;
+       padding: 0.5%;
+       display: inline-block;
+       width: 5%;
+       text-align: center;
+}
+
+li.refuse_button > a:hover {
+        background: darksalmon;
+        color: white;
+}
+
+div.logout_success {
+    text-align: center;
+    color: darkcyan;
+    font-size: 120%;
+    margin: 2%;
+}
+
+
+div.login_error {
+    text-align: center;
+    color: darksalmon;
+    font-size: 120%;
+    margin: 2%;
+}
+
+
 input[type=submit] {
       border: #92A88C;
       color: #92A88C;
@@ -206,6 +239,22 @@ a:hover {
   font-size: 110%;
 }
 
+form.login_form {
+    text-align: center;
+}
+
+div.login_elem {
+    margin-bottom: 0.5%;
+}
+
+div.login_elem > input{
+    font-size: 120%;
+}
+
+input.login_button{
+    font-size: 120%;
+    margin-top: 1%;
+}
 
 hr {
     align: center;

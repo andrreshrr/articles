@@ -25,6 +25,10 @@ public class ArticlesController {
     @Autowired
     ArticleManagerService service;
 
+    @GetMapping("")
+    public String mainFirstPage(){
+        return "redirect:/articles/1";
+    }
     @GetMapping("/articles")
     public String mainPage(){
         return "redirect:/articles/1";
