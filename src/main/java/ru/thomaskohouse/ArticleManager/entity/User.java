@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -16,11 +18,16 @@ public class User {
     Long id;
 
     String name;
-    String lastName;
-    String middleName;
+
+    String username;
+
+    @Column(columnDefinition = "UUID")      //колонка для хэшированного пароля MD5
+    UUID password;
+
+    @Column(columnDefinition = "TEXT")      //колонка с информацией о пользователе
+    String about;
 
     @Email
     String email;
-
 
 }

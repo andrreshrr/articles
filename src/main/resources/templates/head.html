@@ -11,14 +11,22 @@
 <body>
     <ul>
         <li class = "little_margin thin button"><a th:href = "@{/articles/1}"><i class="fa-regular fa-rectangle-list fa-xl icon"></i>List</a></li>
-        <li class = "margin thin button"><a sec:authorize="isAuthenticated()" th:href="@{/article/new}"><i class="fa-solid fa-pen icon"></i>Write</a></li>
+        <li class = "margin thin button">
+            <a sec:authorize="isAuthenticated()" th:href="@{/article/new}"><i class="fa-solid fa-pen icon"></i>Write</a>
+            <a sec:authorize="isAnonymous()" style="visibility: hidden;"></a>
+        </li>
         <li class = "margin "><div class = "welcome">Welcome! To our library!</div></li>
         <rr sec:authorize="isAnonymous()">
             <li class = "little_margin thin button"> <a th:href = "@{/login}">Login</a> </li>
-            <li class = "last_element thin button"> <a href = "google.com">Register </a></li>
+            <li class = "last_element thin button"> <a th:href = "@{/user/new}">Register </a></li>
         </rr>
         <rr sec:authorize="isAuthenticated()">
-            <li class = "little_margin thin refuse_button"> <a th:href = "@{/logout}">Logout</a> </li>
+            <li class = "little_margin thin button"> <a href = "@{/profile}">My Profile </a></li>
+            <li class = "last_element thin refuse_button"> <a href = "javascript: document.logout_form.submit()">Logout</a> </li>
+            <form name = "logout_form" method="post" th:action="@{/logout}" th:hidden="true">
+                <input hidden type="submit" value="Log Out"/>
+            </form>
+
         </rr>
     </ul>
     <hr class = "head"/>
