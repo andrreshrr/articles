@@ -18,10 +18,24 @@
 <form method="post" th:action="@{/user/new}" th:object="${user}">
     <div class="user_register_from">
         <input id="username" required type="text" th:field="*{username}" placeholder="Username"/>
-        <input id = "name" required type="text" th:field="*{name}" placeholder="Name"/>
-        <input id = "pass" required type="text" placeholder="Password"/>
+        <input id = "email" required type="email" th:field="*{email}" placeholder="Email">
+        <input id = "city" required type="text" th:field="*{city}" placeholder="City"/>
+        </br>
+        <input id = "last_name" required type="text" th:field="*{lastName}" placeholder="Last Name"/>
+        <input id = "name" required type="text" th:field="*{name}" placeholder="First Name"/>
+        <input id = "middle_name" required type="text" th:field="*{middleName}" placeholder="Middle Name"/>
+        <br/>
+        <input id = "birthDate" required type = "date" th:field="*{birthDate}" placeholder="Birth Date">
+        <select id="sex" required th:field="*{sex}">
+            <option value="" hidden="">Sex</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="NOT_DEFINED">Not defined</option>
+        </select>
+        <br/>
+        <input id = "password" required type="password" placeholder="Password" th:field="*{password}"/>
         <div class="user_about">
-            <textarea id="about" th:field="*{about}" placeholder="Short biography"/>
+            <textarea id="about" th:field="*{about}" placeholder="Short biography" rows ="10" cols="40"/>
         </div>
     </div>
     <div class="buttons_container">

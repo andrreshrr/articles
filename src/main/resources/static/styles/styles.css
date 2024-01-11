@@ -37,6 +37,10 @@ hr.head{
     width: 100%;
 }
 
+*.black {
+    color: black;
+}
+
 cap {
     display: inline;
 }
@@ -113,12 +117,30 @@ div.list_element > *.article_creation {
     margin-bottom: 1%;
 }
 
-*.article_container {
+*.article_container, *.user_container {
       margin-inline: 10%;
       border-left: 2px #92A88C ridge;
       padding-left: 3%;
       margin-left: 7%;
       font-size: 120%;
+}
+
+div.user_container > div > div {
+    color: black;
+    font-size: x-large;
+}
+div.user_body > div > span, div.user_additional > div > span {
+    color: gray;
+}
+
+div.user_inline {
+    display: -webkit-inline-box;
+}
+
+div.user_additional {
+    margin-left: 20%;
+    font-size: x-large;
+    color: gray;
 }
 
 div.article_body > * {
@@ -153,9 +175,9 @@ a.big_button {
     padding-inline: 5%;
 }
 
-li.refuse_button > a {
-        border: darksalmon;
-        color: darksalmon;
+li.logout_button > a {
+       border: darksalmon;
+       color: darksalmon;
        border-style: solid;
        border-width: thin;
        text-decoration: none;
@@ -165,7 +187,7 @@ li.refuse_button > a {
        text-align: center;
 }
 
-li.refuse_button > a:hover {
+li.logout_button > a:hover {
         background: darksalmon;
         color: white;
 }
@@ -256,6 +278,37 @@ input.login_button{
     margin-top: 1%;
 }
 
+div.user_register_from {
+    font-size: 120%;
+    margin-left: 7%;
+    margin-right: 10%;
+    margin-top: 2%;
+}
+div.user_register_from > input {
+    font-size: 120%;
+    margin-right: 5%;
+    margin-bottom: 1%;
+}
+
+div.user_register_from > select {
+    font-size: 120%;
+    margin-right: 5%;
+    margin-bottom: 1%;
+    background: white;
+    color: rgb(128, 128, 128);
+    width: 18.5%;
+}
+
+div.user_register_from > #birthDate {
+    width: 17.75%;
+    color: gray;
+}
+
+div.user_about > #about {
+    margin-top: 2%;
+    margin-bottom: 10%;
+}
+
 hr {
     align: center;
     width: 70%;
@@ -277,4 +330,40 @@ footer {
     text-align: center;
     bottom: 0;
     width:99%;
+}
+
+*.refuse_button {
+    border: thin solid #92A88C;
+    text-decoration: none;
+}
+
+a.author_link {
+    color: gray;
+    text-decoration: none;
+}
+
+a.author_link:hover, div.author:hover {
+    color: #92A88C;
+    text-decoration: underline;
+    cursor: pointer;
+    background: white;
+}
+
+div.recent_article {
+    font-size: 200%;
+    width: 100%;
+    display: block ruby;
+}
+
+div.recent_article > div.article_creation {
+    width: 15%;
+    color: gray;
+}
+
+div.recent_article > div.article_head {
+    overflow-x: clip;
+    width: 45%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-inline-start: 0%;
 }

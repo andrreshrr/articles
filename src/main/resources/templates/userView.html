@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Articles</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/styles.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:insert="head.html :: body"> </div>
+
+<div class = "user_container">
+    <h1>
+       <span th:text = "${user.username}"/> profile
+    </h1>
+    <div class = "user_inline">
+        <div class = "user_body">
+            <div>Last Name: <span th:text="${user.lastName}"/></div>
+            </br>
+            <div>First Name: <span th:text="${user.name}"/></div>
+            </br>
+            <div>Middle Name: <span th:text="${user.middleName}"/></div>
+            </br>
+            <div>Email: <span th:text="${user.email}"/></div>
+            </br>
+            <p >
+            <div>Registration DateTime: <span th:text="${#temporals.format(user.getRegistrationDateTime(), 'dd.MM.yyyy HH:mm')}"/></div>
+            </br>
+
+        </div>
+        <div class = "user_additional">
+            <div>City: <span th:text="${user.city}"/></div>
+            </br>
+            <div>Age: <span th:text="${user.getAge()}"/></div>
+            </br>
+            <div>Sex: <span th:text="${user.getSex()}"/></div>
+        </div>
+    </div>
+
+    <h3>My Story</h3>
+    <span th:text="${user.about}"/>
+
+    <h3>Recent articles</h3>
+    <tr th:each="article : ${recentArticles}">
+        <div class="recent_article">
+            <div class = "article_creation">
+                <i class="fa-regular fa-calendar-days icon"></i><td th:text="${#temporals.format(article.creationDateTime, 'dd.MM.yyyy')}"></td>
+            </div>
+            <div class = "article_head">
+                <a th:href="@{/article/{id}(id=${article.id})}"><td th:text = "${article.head}"></td></a>
+            </div>
+        </div>
+    </tr>
+</div>
+</body>
+
+
+</html>

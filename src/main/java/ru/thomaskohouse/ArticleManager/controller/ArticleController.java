@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.thomaskohouse.ArticleManager.entity.Article;
 import ru.thomaskohouse.ArticleManager.entity.User;
 import ru.thomaskohouse.ArticleManager.service.ArticleManagerService;
+import ru.thomaskohouse.ArticleManager.service.UserService;
 
 import java.time.LocalDateTime;
 
@@ -18,11 +19,13 @@ import java.time.LocalDateTime;
 @Controller
 public class ArticleController {
     @Autowired
-    ArticleManagerService service;
+    ArticleManagerService articleManagerService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/article/{id}")
     public String articlePage(@PathVariable Long id, Model model){
-        Article article = service.getArticle(id);
+        Article article = articleManagerService.getArticle(id);
         User author = article.getAuthor();
         model.addAttribute("article", article);
         model.addAttribute("author", author);
@@ -38,9 +41,9 @@ public class ArticleController {
     @PostMapping("/article/new")
     public String createArticle(Model model, @ModelAttribute Article article){
         article.setCreationDateTime(LocalDateTime.now());
-        User user = service.getUser(1L);
+        User user = userService.getCurrentUser();
         article.setAuthor(user);
-        Article newArticle = service.addArticle(article);
+        Article newArticle = articleManagerService.addArticle(article);
         return "redirect:/article/"+newArticle.getId();
     }
 }

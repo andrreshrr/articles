@@ -17,11 +17,11 @@
 <div class = "article_container">
     <h1 th:text = "${article.head}"/>
     <div class = "head2">
-        <div class = "article_id">
-            <i class="fa-regular fa-user little_margin"></i><td th:text = "${author.name}"></td>
+        <div class = "article_id author">
+            <i class="fa-regular fa-user little_margin"></i><a class="author_link" th:href="@{/user/{id}(id=${author.id})}"><span th:text = "${author.name}"/></a>
         </div>
         <div class = "article_creation">
-            <i class="fa-regular fa-calendar-days little_margin"></i><td th:text = "${{article.creationDateTime}}"></td>
+            <i class="fa-regular fa-calendar-days little_margin"></i><span th:text="${#temporals.format(article.creationDateTime, 'dd.MM.yyyy')}"></span>
         </div>
     </div>
 

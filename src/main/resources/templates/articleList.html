@@ -35,7 +35,7 @@
                         <a th:href="@{/article/{id}(id=${article.id})}"><td th:text = "${article.head}"></td></a>
                     </div>
                     <div class = "article_creation">
-                        <i class="fa-regular fa-calendar-days icon"></i><td th:text = "${{article.creationDateTime}}"></td>
+                        <i class="fa-regular fa-calendar-days icon"></i><td th:text="${#temporals.format(article.creationDateTime, 'dd.MM.yyyy')}"></td>
                     </div>
                 </div>
             </tr>

@@ -25,7 +25,7 @@ public class ArticleManagerService {
         int currentPage = pageable.getPageNumber();
         int currentItem = currentPage * pageSize;
         List<Article> list;
-        List<Article> allArticles = (List<Article>) articlesRepository.findAll();
+        List<Article> allArticles = articlesRepository.findAllByOrderByCreationDateTimeDesc();
         if (allArticles.size() < currentItem) {
             list = Collections.emptyList();
         } else {

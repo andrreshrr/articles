@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "articles")
@@ -27,5 +28,8 @@ public class Article {
 
     @ManyToOne
     User author;    //автор статьи
+
+    @OneToMany
+    List<Comment> comments;
 
 }

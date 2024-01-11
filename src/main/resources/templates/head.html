@@ -21,8 +21,8 @@
             <li class = "last_element thin button"> <a th:href = "@{/user/new}">Register </a></li>
         </rr>
         <rr sec:authorize="isAuthenticated()">
-            <li class = "little_margin thin button"> <a href = "@{/profile}">My Profile </a></li>
-            <li class = "last_element thin refuse_button"> <a href = "javascript: document.logout_form.submit()">Logout</a> </li>
+            <li class = "little_margin thin button"> <a th:href = "@{/user/profile}">My Profile </a></li>
+            <li class = "last_element thin logout_button"> <a href = "javascript: document.logout_form.submit()">Logout</a> </li>
             <form name = "logout_form" method="post" th:action="@{/logout}" th:hidden="true">
                 <input hidden type="submit" value="Log Out"/>
             </form>
