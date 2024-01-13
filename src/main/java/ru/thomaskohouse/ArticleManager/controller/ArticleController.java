@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.thomaskohouse.ArticleManager.entity.Article;
+import ru.thomaskohouse.ArticleManager.entity.Comment;
 import ru.thomaskohouse.ArticleManager.entity.User;
 import ru.thomaskohouse.ArticleManager.service.ArticleManagerService;
 import ru.thomaskohouse.ArticleManager.service.UserService;
@@ -29,6 +30,7 @@ public class ArticleController {
         User author = article.getAuthor();
         model.addAttribute("article", article);
         model.addAttribute("author", author);
+        model.addAttribute("newComment", new Comment());
         return "articleView";
     }
 

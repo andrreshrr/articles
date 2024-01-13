@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,12 @@ public class Article {
     @ManyToOne
     User author;    //автор статьи
 
-    @OneToMany
-    List<Comment> comments;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "article")
+    List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment){
+        comments.add(comment);
+        comment.setArticle(this);
+    }
 
 }

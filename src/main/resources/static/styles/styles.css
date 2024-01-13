@@ -246,6 +246,8 @@ a:link, a:visited {
   color: #92A88C;
   padding: 0.5%;
 }
+
+
 a:hover {
   text-decoration: none;
   background: #92A88C;
@@ -366,4 +368,35 @@ div.recent_article > div.article_head {
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-inline-start: 0%;
+}
+
+h2.comments_header{
+    text-align: left;
+    font-weight: bold;
+}
+
+hr.comments_begin{
+    margin-left: 0;
+    color: black;
+    width: 50%;
+}
+
+div.other_comments{
+    border: 5px double #92A88C;
+    width: 60%;
+    padding: 1%;
+    margin-bottom: 1%;
+}
+
+div.comment_body {
+    margin-top: 2%;
+}
+
+
+a.author_link:link, a.author_link:visited {
+    padding: 0%;
+}
+
+div.comment_date {
+    color: gray;
 }

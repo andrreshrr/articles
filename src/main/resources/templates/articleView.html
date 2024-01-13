@@ -26,7 +26,39 @@
     </div>
 
     <div class = "article_body"> <td th:utext = "${article.body}"/> </div>
+
+    <br/>
+    <hr class="comments_begin"/>
+    <h2 class="comments_header">Comments</h2>
+    <div class="comments_container">
+        <div class="new_comment">
+            <form method="post" th:action="@{/comment/new}">
+                <textarea id="new_comment" placeholder="Share your opinion..." th:field="${newComment.body}" rows ="10" cols="40"/>
+                <input id="articleId" type = "hidden" th:field="${article.getId()}"/>
+                <input class="big_button thin" type="submit" value="Share">
+            </form>
+
+        </div>
+            <tr th:each="comment : ${article.getComments()}">
+                <div class="other_comments">
+                    <div class="comment_header_inline">
+                        <div class="comment_author">
+                            <a class="author_link" th:href="@{/user/{id}(id=${comment.getAuthor().getId()})}"><span th:text = "${comment.getAuthor().getName()}"/></a>
+                        </div>
+                        <div class="comment_date">
+                            <span th:utext="${#temporals.format(comment.getCreationDateTime(), 'dd.MM.yyyy HH:mm')}"/>
+                        </div>
+                    </div>
+                    <div class="comment_body">
+                        <td th:utext="${comment.getBody()}"/>
+                    </div>
+
+                </div>
+            </tr>
+    </div>
 </div>
+
+
 </body>
 
 

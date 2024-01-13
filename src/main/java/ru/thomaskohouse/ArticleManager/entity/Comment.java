@@ -19,10 +19,10 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     String body;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     User author;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     Article article;
 
     LocalDateTime creationDateTime;
