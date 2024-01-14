@@ -60,11 +60,11 @@ public class ArticleManagerService {
         return  articlesRepository.save(newArticle);
     }
 
-    public Article addComment(Comment comment, Long articleId){
-        Article article = articlesRepository.findById(articleId).orElseThrow();
-        comment.setAuthor(userService.getCurrentUser());
+    public Article addComment(Comment comment){
         comment.setCreationDateTime(LocalDateTime.now());
+        Article article = comment.getArticle();
         article.addComment(comment);
+
         return articlesRepository.save(article);
     }
 

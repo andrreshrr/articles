@@ -12,7 +12,7 @@
     <ul>
         <li class = "little_margin thin button"><a th:href = "@{/articles/1}"><i class="fa-regular fa-rectangle-list fa-xl icon"></i>List</a></li>
         <li class = "margin thin button">
-            <a sec:authorize="isAuthenticated()" th:href="@{/article/new}"><i class="fa-solid fa-pen icon"></i>Write</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/article/new}"><i class="fa-regular fa-newspaper fa-xl icon"></i>Write</a>
             <a sec:authorize="isAnonymous()" style="visibility: hidden;"></a>
         </li>
         <li class = "margin "><div class = "welcome">Welcome! To our library!</div></li>

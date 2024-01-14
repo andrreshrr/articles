@@ -26,11 +26,20 @@ public class ArticleController {
 
     @GetMapping("/article/{id}")
     public String articlePage(@PathVariable Long id, Model model){
-        Article article = articleManagerService.getArticle(id);
-        User author = article.getAuthor();
+        Article article = articleManagerService.getArticle(id); //загружаем тело статьи
+        User author = article.getAuthor();                      //загружаем автора
+        Comment newComment = new Comment();                     //готовим метаданные комментария
+        User currentUser = userService.getCurrentUser();
+        newComment.setAuthor(currentUser);
+        newComment.setArticle(article);
+        boolean isCurrentUser = author.equals(currentUser);
+
+
         model.addAttribute("article", article);
         model.addAttribute("author", author);
-        model.addAttribute("newComment", new Comment());
+        model.addAttribute("newComment", newComment);
+        model.addAttribute("isCurrentUser", isCurrentUser);
+
         return "articleView";
     }
 
@@ -48,4 +57,11 @@ public class ArticleController {
         Article newArticle = articleManagerService.addArticle(article);
         return "redirect:/article/"+newArticle.getId();
     }
+
+    @PostMapping("/comment/new")
+    public String addComment(@ModelAttribute Comment newComment) {
+        return "redirect:/article/"+ articleManagerService.addComment(newComment).getId();
+    }
+
+
 }

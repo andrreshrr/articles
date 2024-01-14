@@ -11,6 +11,7 @@ import ru.thomaskohouse.ArticleManager.enums.Sex;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +19,21 @@ import java.util.UUID;
 @Getter
 @Setter
 public class User {
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

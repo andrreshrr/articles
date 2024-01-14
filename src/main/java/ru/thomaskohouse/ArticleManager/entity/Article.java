@@ -35,7 +35,6 @@ public class Article {
 
     public void addComment(Comment comment){
         comments.add(comment);
-        comment.setArticle(this);
     }
 
 }
