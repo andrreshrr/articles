@@ -1,7 +1,6 @@
 package ru.thomaskohouse.ArticleManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +12,11 @@ import ru.thomaskohouse.ArticleManager.entity.User;
 import ru.thomaskohouse.ArticleManager.service.UserService;
 
 import java.util.List;
-import java.util.UUID;
 
+/**
+ * Контроллер для управления юзерами:
+ * создание, просмотр профиля
+ */
 @Controller
 public class UserController {
     @Autowired
@@ -23,6 +25,7 @@ public class UserController {
     UserController(UserService userService){
         this.userService = userService;
     }
+
     @GetMapping("/user/new")
     public String createUserForm(Model model){
         model.addAttribute("user", new User());
@@ -30,24 +33,25 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public String userPage(@PathVariable Long id, Model model){
+    public String viewUser(@PathVariable Long id, Model model){
         User user = userService.getUser(id);
         List<Article> userArticles = userService.getUserArticles(user);
         model.addAttribute("user", user);
+        model.addAttribute("haveArticles", (userArticles != null) && (!userArticles.isEmpty()));
         model.addAttribute("recentArticles", userArticles);
+
         return "userView";
     }
 
     @GetMapping("/user/profile")
-    public String myPage(){
+    public String viewCurrentUser(){
         return "redirect:/user/" + userService.getCurrentUser().getId();
     }
 
     @PostMapping("/user/new")
-    public String createUserForm(@ModelAttribute User user){
+    public String createNewUser(@ModelAttribute User user){
         user = userService.addUser(user);
         return "userView";
     }
-
 
 }

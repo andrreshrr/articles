@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Articles</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/styles.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div th:insert="header.html :: body"> </div>
+    <h2>Что вершит судьбу человечества в этом мире? Некое незримое существо или закон, подобно длани господней, парящей над миром?<br>
+        По крайней мере, истинно то, что человек не властен даже над своей волей.</h2>
+    <div class="page_navigation">
+        <tr th:each="pageNumber : ${pageNumbers}">
+
+            <a th:if="${pageNumber}!=${currentPage}" th:href="@{${pageNumber}}"><td th:text = "${pageNumber}"></a>
+            <rr class = "selected_page" th:if="${pageNumber}==${currentPage}"><td th:text = "${pageNumber}"/></rr>
+
+        </tr>
+    </div>
+
+    <div class = "elements_container">
+        <tbody>
+            <tr th:each="article, iStat : ${articlePage.content}">
+                <div class="list_element">
+                    <div class = "article_id author">
+                        <i class="fa-regular fa-user icon"></i><a class="author_link" th:href="@{/user/{id}(id=${article.author.id})}"><span th:text = "${article.author.lastName}"/></a>
+                    </div>
+                    <div class = "article_head">
+                        <a th:href="@{/article/{id}(id=${article.id})}"><td th:text = "${article.head}"></td></a>
+                    </div>
+                    <div class = "article_creation">
+                        <i class="fa-regular fa-calendar-days icon"></i><td th:text="${#temporals.format(article.creationDateTime, 'dd.MM.yyyy')}"></td>
+                    </div>
+                </div>
+            </tr>
+        </tbody>
+    </div>
+</body>
+
+<footer th:insert="footer.html :: body"> </footer>
+
+
+</html>

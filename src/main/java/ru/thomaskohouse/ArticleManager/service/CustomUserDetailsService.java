@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.thomaskohouse.ArticleManager.repository.UserRepository;
+
+/**
+ * Сервис для корректной работы аутенфикации
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired

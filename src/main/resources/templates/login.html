@@ -11,7 +11,7 @@
     <title>Please Log In</title>
 </head>
 <body>
-<div th:insert="head.html :: body"> </div>
+<div th:insert="header.html :: body"> </div>
 
 
 <form class = "login_form" th:action="@{/login}" method="post">
@@ -29,4 +29,6 @@
     <input class = "login_button big_button thin" type="submit" value="Log in" />
 </form>
 </body>
+
+<footer th:insert="footer.html :: body"> </footer>
 </html>

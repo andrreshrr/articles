@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <title>Articles</title>
+    <title th:text="${article.getHead()}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/styles/styles.css}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,19 +12,22 @@
     <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div th:insert="head.html :: body"> </div>
+<div th:insert="header.html :: body"> </div>
 
 <div class = "article_container">
-    <div th:if="${isCurrentUser}" class="modify_article">
-        <ul>
-            <li class="little_margin thin button"><a th:href="google.com"><i class="fa-solid fa-pen icon"></i>Edit</a></li>
-            <li class="little_margin thin logout_button"><a th:href="google.com"><i class="fas fa-eraser icon"></i>Delete</a></li>
-        </ul>
+    <div>
+        <h1 th:text = "${article.head}"/>
+
+        <div th:if="${isCurrentUser}" class="modify_article">
+            <ul>
+                <li class="little_margin thin button"><a th:href="@{/article/{id}/edit(id=${article.id})}"><i class="fa-solid fa-pen icon"></i>Edit</a></li>
+                <li class="little_margin thin logout_button"><a th:href="@{/article/{id}/delete(id=${article.id})}"><i class="fas fa-eraser icon"></i>Delete</a></li>
+            </ul>
+        </div>
     </div>
-    <h1 th:text = "${article.head}"/>
     <div class = "head2">
         <div class = "article_id author">
-            <i class="fa-regular fa-user little_margin"></i><a class="author_link" th:href="@{/user/{id}(id=${author.id})}"><span th:text = "${author.name}"/></a>
+            <i class="fa-regular fa-user little_margin"></i><a class="author_link" th:href="@{/user/{id}(id=${author.id})}"><span th:text = "${author.lastName}"/></a>
         </div>
         <div class = "article_creation">
             <i class="fa-regular fa-calendar-days little_margin"></i><span th:text="${#temporals.format(article.creationDateTime, 'dd.MM.yyyy')}"></span>
@@ -42,7 +45,7 @@
                 <textarea id="new_comment" placeholder="Share your opinion..." th:field="*{body}" rows ="3" cols="99"/>
                 <input type="hidden" th:field="*{article}"/>
                 <input type="hidden" th:field="*{author}"/>
-                <input class="big_button thin" type="submit" value="Share">
+                <input class="big_button thin" type="submit" value="Comment">
             </form>
         </div>
             <tr th:if="${article.getComments().size()}!=0" th:each="comment : ${article.getComments()}">
@@ -69,5 +72,6 @@
 
 </body>
 
+<footer th:insert="footer.html :: body"> </footer>
 
 </html>

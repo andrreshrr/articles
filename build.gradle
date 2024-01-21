@@ -24,18 +24,11 @@ dependencies {
 	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 	implementation 'org.springframework.boot:spring-boot-starter-security:3.1.5'
 	implementation 'org.springframework.boot:spring-boot-starter:3.2.0'
-
 	compileOnly 'org.projectlombok:lombok:1.18.30'
-
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.security:spring-security-config:6.2.0'
-	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity6
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
-
-
-
-
 }
 
 tasks.named('bootBuildImage') {

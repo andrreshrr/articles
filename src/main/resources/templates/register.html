@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Articles</title>
+    <title>Register</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/styles/styles.css}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,8 +14,8 @@
 
 </head>
 <body>
-<div th:insert="head.html :: body"> </div>
-<form method="post" th:action="@{/user/new}" th:object="${user}">
+<div th:insert="header.html :: body"> </div>
+<form id="margin_form" method="post" th:action="@{/user/new}" th:object="${user}">
     <div class="user_register_from">
         <input id="username" required type="text" th:field="*{username}" placeholder="Username"/>
         <input id = "email" required type="email" th:field="*{email}" placeholder="Email">
@@ -39,11 +39,12 @@
         </div>
     </div>
     <div class="buttons_container">
-        <a class="refuse_button thin" style="margin-right: 3%; padding-inline: 4%;" th:href="@{~/articles/1}">Cancel</a>
+        <a id="cancel_button" class="refuse_button thin" style="margin-right: 3%; padding-inline: 4%;" th:href="@{~/articles/1}">Cancel</a>
         <input class="big_button thin" type="submit" value="Create">
     </div>
 </form>
 </body>
 
+<footer th:insert="footer.html :: body"> </footer>
 
 </html>

@@ -5,14 +5,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
-import ru.thomaskohouse.ArticleManager.enums.Sex;
+import org.springframework.context.annotation.Lazy;
+import ru.thomaskohouse.ArticleManager.dict.Sex;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -39,14 +38,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Lazy
     String name;
 
     String lastName;
 
+    @Lazy
     String middleName;
 
+    @Lazy
     String city;
 
+    @Lazy
     Sex sex;
 
     @Column(nullable = false, unique = true)
@@ -60,13 +63,18 @@ public class User {
     @Column(columnDefinition = "boolean default true")
     boolean enabled;
 
+    @Lazy
     @Column(columnDefinition = "TEXT")      //колонка с информацией о пользователе
     String about;
+
+    @Lazy
     @Email
     String email;
 
+    @Lazy
     LocalDate birthDate;
 
+    @Lazy
     LocalDateTime registrationDateTime;
 
     public Long getAge(){

@@ -19,12 +19,11 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     String body;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     User author;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     Article article;
 
     LocalDateTime creationDateTime;
-
 }

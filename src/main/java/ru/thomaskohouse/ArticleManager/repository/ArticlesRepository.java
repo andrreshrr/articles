@@ -7,6 +7,7 @@ import ru.thomaskohouse.ArticleManager.entity.User;
 import java.util.List;
 
 public interface ArticlesRepository extends CrudRepository<Article, Long> {
-    public List<Article> findAllByOrderByCreationDateTimeDesc();
-    public List<Article> findTop5ByAuthorOrderByCreationDateTimeDesc(User author);
+    List<Article> findAllByOrderByCreationDateTimeDesc();
+    List<Article> findTop5ByAuthorOrderByCreationDateTimeDesc(User author);
+    void deleteById(Long id);
 }

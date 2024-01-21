@@ -13,6 +13,9 @@ import ru.thomaskohouse.ArticleManager.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Сервис для работы с юзерами
+ */
 @Service
 public class UserService {
 

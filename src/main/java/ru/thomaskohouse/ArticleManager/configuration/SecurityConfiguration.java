@@ -17,11 +17,13 @@ import ru.thomaskohouse.ArticleManager.service.CustomUserDetailsService;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+/**
+ * Конфиг для управления Spring Security
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
     @Autowired
-    private CustomUserDetailsService userDetailsService;
     final
     CustomUserDetailsService customUserDetailsService;
 
@@ -29,21 +31,19 @@ public class SecurityConfiguration {
         this.customUserDetailsService = customUserDetailsService;
     }
 
-
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {        //определяем форму логина, форму ошибки при логине, ссылку для выхода и запрет на адреса без аутенфикации
         http
                 .formLogin(form -> form
-                        .loginPage("/login").failureUrl("/login-error"))
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/articles")
+                        .failureUrl("/login-error"))
                         .logout((logout) -> logout.logoutSuccessUrl("/logout"));
-
-
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder encoder() {
+    public PasswordEncoder encoder() {          //используется при хэшировании пароля
         return new BCryptPasswordEncoder();
     }
 

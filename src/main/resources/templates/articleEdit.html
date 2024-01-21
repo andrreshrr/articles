@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit article</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/styles.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js">
+    </script>
+    <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/ckeditor/ckeditor.js}"></script>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 450px;
+        }
+    </style>
+
+</head>
+<body>
+    <div th:insert="header.html :: body"> </div>
+    <form id="margin_form" method="post" th:action="${isNewArticle} ? @{/article/new} : @{/article/{id}/update(id=${article.id})}" th:object="${article}">
+
+        <input id="head" required type="text" th:field="*{head}" placeholder="Article title"/>
+       <div class="article_body">
+         <textarea id="body" th:field="*{body}" placeholder="Article body"/>
+       </div>
+        <div class="buttons_container">
+            <a id="cancel_button" class="refuse_button thin" style="margin-right: 3%; padding-inline: 4%;" th:href="@{~/articles/1}">Cancel</a>
+            <input th:if="${isNewArticle}" class="big_button thin" type="submit" th:value="Create"/>
+            <input th:unless="${isNewArticle}" class="big_button thin" type="submit" value="Update"/>
+        </div>
+    </form>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#body' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+</body>
+
+<footer th:insert="footer.html :: body"> </footer>
+
+</html>

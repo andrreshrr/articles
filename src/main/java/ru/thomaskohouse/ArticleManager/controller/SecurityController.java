@@ -6,6 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
+/**
+ * Контроллер для управления процессами аутенфикации, регистрации, выхода из профиля и ошибки при логине
+ */
 @Controller
 public class SecurityController {
 
@@ -15,18 +19,17 @@ public class SecurityController {
         String login() {
             return "login";
         }
+
         @GetMapping("/logout")
         String logout(Model model){
             model.addAttribute("logout", "true");
             return "login";
-
         }
 
         @GetMapping("/login-error")
         String loginError(Model model){
             model.addAttribute("error", "true");
             return "login";
-
         }
     }
 

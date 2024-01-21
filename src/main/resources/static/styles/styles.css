@@ -64,9 +64,7 @@ div.page_navigation {
     font-size: 150%;
 }
 
-*.thin {
-    font-weight: 500;
-}
+
 
 *.elements_container {
     margin-inline-start: 20%;
@@ -81,7 +79,7 @@ div.page_navigation {
 
 div.list_element > *.article_id {
     text-align: left;
-    width: 10%;
+    width: 16%;
 }
 
 *.article_head {
@@ -123,6 +121,7 @@ div.list_element > *.article_creation {
       padding-left: 3%;
       margin-left: 7%;
       font-size: 120%;
+        margin-bottom: 5%;
 }
 
 div.user_container > div > div {
@@ -158,7 +157,7 @@ li.button a {
     text-decoration: none;
     padding: 0.5%;
     display: inline-block;
-    width: 5%;
+    width: 93.2px;
     text-align: center;
 }
 
@@ -183,11 +182,20 @@ li.logout_button > a {
        text-decoration: none;
        padding: 0.5%;
        display: inline-block;
-       width: 5%;
+        width: 93.2px;
        text-align: center;
 }
 
-li.logout_button > a:hover {
+#cancel_button {
+    border: darksalmon;
+    color: darksalmon;
+    border-style: solid;
+    border-width: thin;
+
+    text-decoration: none;
+}
+
+li.logout_button > a:hover, #cancel_button:hover {
         background: darksalmon;
         color: white;
 }
@@ -265,6 +273,7 @@ a:hover {
 
 form.login_form {
     text-align: center;
+    margin-bottom: 31%;
 }
 
 div.login_elem {
@@ -325,13 +334,18 @@ hr {
     font-weight: 700;
 }
 footer {
-    color: #313131;
+    color: white;
     font-weight: lighter;
+    position: fixed;
     overflow-x: hidden;
-    position: absolute;
     text-align: center;
     bottom: 0;
-    width:99%;
+    left: 0;
+    width:100%;
+    background-color: #92A88C;
+    height: 40px;
+    line-height: 40px;
+    font-size: x-large;
 }
 
 *.refuse_button {
@@ -340,8 +354,20 @@ footer {
 }
 
 a.author_link {
-    color: gray;
+    color: darkgray;
     text-decoration: none;
+}
+
+a.author_link > span {
+    color: darkgray;
+    font-size: 90%;
+}
+
+a.author_link:hover > span {
+    color: #92A88C;
+    text-decoration: underline;
+    cursor: pointer;
+    background: white;
 }
 
 a.author_link:hover, div.author:hover {
@@ -359,15 +385,15 @@ div.recent_article {
 
 div.recent_article > div.article_creation {
     width: 15%;
-    color: gray;
+    color: darkgray;
 }
 
 div.recent_article > div.article_head {
     overflow-x: clip;
-    width: 45%;
+    width: 685.433px;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-inline-start: 0%;
+    margin-inline-start: 0;
 }
 
 h2.comments_header{
@@ -402,7 +428,7 @@ div.comment_date {
 }
 
 div.new_comment {
-    background: lightgray;
+    background: #dff0de;
     width: 60%;
     padding: 1.3%;
     border-radius: 20px;
@@ -418,4 +444,16 @@ div.modify_article {
     color: #92A88C;
     font-size: 80%;
     font-weight: initial;
+}
+
+div.modify_article > ul {
+    padding: 0%;
+}
+
+#update_button{
+    width: 10%;
+}
+
+#margin_form {
+    margin-bottom: 5.5%;
 }

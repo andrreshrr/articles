@@ -7,42 +7,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.thomaskohouse.ArticleManager.entity.Article;
-import ru.thomaskohouse.ArticleManager.entity.User;
-import ru.thomaskohouse.ArticleManager.repository.ArticlesRepository;
-import ru.thomaskohouse.ArticleManager.repository.UserRepository;
-import ru.thomaskohouse.ArticleManager.service.ArticleManagerService;
+import ru.thomaskohouse.ArticleManager.service.ArticleService;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
+/**
+ * Манипуляция списком статей
+ * Вывод, загрузка страниц
+ */
 @Controller
 public class ArticlesController {
 
     @Autowired
-    ArticleManagerService service;
+    ArticleService service;
 
-    @GetMapping("")
-    public String mainFirstPage(){
-        return "redirect:/articles/1";
-    }
-    @GetMapping("/articles")
-    public String mainPage(){
-        return "redirect:/articles/1";
-    }
-
-    @GetMapping("/articles/")
-    public String mainOnePage(){
+    @GetMapping({"", "/articles", "/articles/"})
+    public String firstPage(){
         return "redirect:/articles/1";
     }
 
     @GetMapping("/articles/{currentPage}")
-    public String articlesPage(Model model, @PathVariable Integer currentPage){
+    public String concretePage(Model model, @PathVariable Integer currentPage){
         int pageSize = 10;
-        Page<Article> articlePage = service.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<Article> articlePage = service.getPaginated(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("articlePage", articlePage);
         int totalPages = articlePage.getTotalPages();
         if (totalPages > 0) {
@@ -52,7 +42,7 @@ public class ArticlesController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         model.addAttribute("currentPage", currentPage);
-        return "articleList";
+        return "articles";
     }
 
 

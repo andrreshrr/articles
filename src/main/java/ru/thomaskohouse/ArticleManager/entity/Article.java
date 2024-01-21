@@ -3,6 +3,7 @@ package ru.thomaskohouse.ArticleManager.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -21,19 +22,21 @@ public class Article {
     long id;
     String head;    //заголовок
 
+    @Lazy
     @DateTimeFormat(pattern="dd-MMM-YYYY")
     LocalDateTime creationDateTime;     //время релиза
 
+    @Lazy
     @Column(columnDefinition = "TEXT")
     String body;    //основной текст статьи
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     User author;    //автор статьи
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "article")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "article", fetch = FetchType.LAZY)   //комменты к статье
     List<Comment> comments = new ArrayList<>();
 
-    public void addComment(Comment comment){
+    public void addComment(Comment comment){    //добавление коммента
         comments.add(comment);
     }
 
