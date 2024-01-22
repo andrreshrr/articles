@@ -2,20 +2,13 @@ package ru.thomaskohouse.ArticleManager.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import ru.thomaskohouse.ArticleManager.service.CustomUserDetailsService;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * Конфиг для управления Spring Security
@@ -23,9 +16,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
     @Autowired
     final
     CustomUserDetailsService customUserDetailsService;
+
+
 
     public SecurityConfiguration(CustomUserDetailsService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
@@ -38,7 +34,16 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .defaultSuccessUrl("/articles")
                         .failureUrl("/login-error"))
-                        .logout((logout) -> logout.logoutSuccessUrl("/logout"));
+                        .logout((logout) -> logout.logoutSuccessUrl("/logout"))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/article/new").authenticated()        //для создания новой статьи надо залогиниться
+                        .requestMatchers(HttpMethod.POST, "/article/new").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/comment/new").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/article/*/delete").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/article/*/edit").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/article/*/update").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/user/profile").authenticated()
+                        .anyRequest().permitAll());                                               //остальные запросы можно делать без аутенфикации
         return http.build();
     }
 

@@ -388,6 +388,11 @@ div.recent_article > div.article_creation {
     color: darkgray;
 }
 
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
 div.recent_article > div.article_head {
     overflow-x: clip;
     width: 685.433px;

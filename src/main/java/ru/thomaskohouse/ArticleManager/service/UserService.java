@@ -1,10 +1,12 @@
 package ru.thomaskohouse.ArticleManager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import ru.thomaskohouse.ArticleManager.entity.Article;
 import ru.thomaskohouse.ArticleManager.entity.User;
 import ru.thomaskohouse.ArticleManager.repository.ArticlesRepository;
@@ -58,5 +60,10 @@ public class UserService {
 
     public List<Article> getUserArticles(User user){
         return articlesRepository.findTop5ByAuthorOrderByCreationDateTimeDesc(user);
+    }
+
+    public boolean isCurrentUserHaveArticle(Long articleId){
+        Article article = articlesRepository.findById(articleId).orElseThrow();
+        return getCurrentUser().equals(article.getAuthor());
     }
 }

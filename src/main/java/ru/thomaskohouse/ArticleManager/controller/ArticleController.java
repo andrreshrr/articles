@@ -1,9 +1,13 @@
 package ru.thomaskohouse.ArticleManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 import ru.thomaskohouse.ArticleManager.entity.Article;
 import ru.thomaskohouse.ArticleManager.entity.Comment;
 import ru.thomaskohouse.ArticleManager.entity.User;
@@ -66,13 +70,16 @@ public class ArticleController {
     @GetMapping("/article/{id}/delete")
     public String deleteArticle(@PathVariable Long id)
     {
+        if (!userService.isCurrentUserHaveArticle(id))
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "You can't delete this article");
         articleService.deleteArticle(id);
         return "redirect:/articles/";
     }
 
     @GetMapping("/article/{id}/edit")
     public String editArticle(Model model, @PathVariable Long id){
-
+        if (!userService.isCurrentUserHaveArticle(id))
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "You can't edit this article");
         model.addAttribute("isNewArticle", false);
         model.addAttribute("article", articleService.getArticle(id));
         return "articleEdit";
@@ -80,6 +87,8 @@ public class ArticleController {
 
     @PostMapping("/article/{id}/update")
     public String updateArticle(Model model, Article article, @PathVariable Long id){
+        if (!userService.isCurrentUserHaveArticle(id))
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "You can't edit this article");
         Article updatedArticle = articleService.updateArticle(article, id);
         model.addAttribute("article",  updatedArticle);
         return "redirect:/article/"+ updatedArticle.getId();
