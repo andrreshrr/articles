@@ -29,14 +29,24 @@ public class UserController {
     @GetMapping("/user/new")
     public String createUserForm(Model model){
         model.addAttribute("user", new User());
-        return "register";
+        model.addAttribute("isNewUser", true);
+        return "userEdit";
+    }
+
+    @GetMapping("/user/{userId}/edit")
+    public String editUser(Model model, @PathVariable Long userId){
+        model.addAttribute("user", userService.getUser(userId));
+        model.addAttribute("isNewUser", false);
+        return "userEdit";
     }
 
     @GetMapping("/user/{id}")
     public String viewUser(@PathVariable Long id, Model model){
         User user = userService.getUser(id);
         List<Article> userArticles = userService.getUserArticles(user);
+        boolean isCurrentUser = user.equals(userService.getCurrentUser());
         model.addAttribute("user", user);
+        model.addAttribute("isCurrentUser", isCurrentUser);
         model.addAttribute("haveArticles", (userArticles != null) && (!userArticles.isEmpty()));
         model.addAttribute("recentArticles", userArticles);
 
@@ -52,6 +62,12 @@ public class UserController {
     public String createNewUser(@ModelAttribute User user){
         user = userService.addUser(user);
         return "userView";
+    }
+
+    @PostMapping("/user/{id}/update")
+    public String updateUser(@PathVariable Long id, @ModelAttribute User user){
+        user = userService.updateUser(id, user);
+        return "redirect:/user/" + user.getId();
     }
 
 }

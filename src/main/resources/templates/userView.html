@@ -18,6 +18,11 @@
     <h1>
        <span th:text = "${user.username}"/> profile
     </h1>
+    <div th:if="${isCurrentUser}" class="modify_article">
+        <ul>
+            <li class="little_margin thin button"><a th:href="@{/user/{id}/edit(id=${user.id})}"><i class="fa-solid fa-pen icon"></i>Edit</a></li>
+        </ul>
+    </div>
     <div class = "user_inline">
         <div class = "user_body">
             <div>Last Name: <span th:text="${user.lastName}"/></div>

@@ -43,6 +43,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User updateUser(Long userId, User newUserBody){
+        User user = userRepository.findById(userId).orElseThrow();
+        user.setAbout(newUserBody.getAbout());
+        user.setCity(newUserBody.getCity());
+        user.setEmail(newUserBody.getEmail());
+        user.setName(newUserBody.getName());
+        user.setLastName(newUserBody.getLastName());
+        user.setMiddleName(newUserBody.getMiddleName());
+        return userRepository.save(user);
+    }
+
     public User getUser(Long id){
         return userRepository.findById(id).orElseThrow();
     }
