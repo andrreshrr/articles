@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.thomaskohouse.ArticleManager.entity.Comment;
 import ru.thomaskohouse.ArticleManager.repository.ArticlesRepository;
+import ru.thomaskohouse.ArticleManager.repository.CommentRepository;
 import ru.thomaskohouse.ArticleManager.repository.UserRepository;
 import ru.thomaskohouse.ArticleManager.entity.Article;
 
@@ -20,11 +21,16 @@ import java.util.List;
  */
 @Service
 public class ArticleService {
-    @Autowired
     final ArticlesRepository articlesRepository;
+    final
+    CommentRepository commentRepository;
+    final
+    UserRepository userRepository;
 
-    public ArticleService(ArticlesRepository articlesRepository) {
+    public ArticleService(ArticlesRepository articlesRepository, CommentRepository commentRepository, UserRepository userRepository) {
         this.articlesRepository = articlesRepository;
+        this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
     }
 
     public Page<Article> getPaginated(Pageable pageable){      //получить страницу со статьями
@@ -51,9 +57,11 @@ public class ArticleService {
         return  articlesRepository.save(newArticle);
     }
 
-    public Article addComment(Comment comment){
+    public Article addComment(Long articleId, Long authorId, Comment comment){
+        comment.setAuthor(userRepository.findById(authorId).orElseThrow());
+        Article article = articlesRepository.findById(articleId).orElseThrow();
+        comment.setArticle(article);
         comment.setCreationDateTime(LocalDateTime.now());
-        Article article = comment.getArticle();
         article.addComment(comment);
         return articlesRepository.save(article);
     }
@@ -62,6 +70,11 @@ public class ArticleService {
         articlesRepository.deleteById(id);
     }
 
+    public Article deleteComment(Long articleId, Long commentId){
+        Article article = articlesRepository.findById(articleId).orElseThrow();
+        article.deleteComment(commentRepository.findById(commentId).orElseThrow());
+        return articlesRepository.save(article);
+    }
     public Article updateArticle(Article article, Long id){
         Article oldArticle = articlesRepository.findById(id).orElseThrow();
         oldArticle.setHead(article.getHead());

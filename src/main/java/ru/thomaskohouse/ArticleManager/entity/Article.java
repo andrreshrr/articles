@@ -39,5 +39,8 @@ public class Article {
     public void addComment(Comment comment){    //добавление коммента
         comments.add(comment);
     }
+    public void deleteComment(Comment comment){
+        comments.remove(comment);
+    }
 
 }

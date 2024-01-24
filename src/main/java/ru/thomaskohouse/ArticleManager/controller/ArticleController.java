@@ -34,14 +34,12 @@ public class ArticleController {
         User author = article.getAuthor();                      //загружаем автора
         Comment newComment = new Comment();                     //готовим метаданные комментария
         User currentUser = userService.getCurrentUser();
-        newComment.setAuthor(currentUser);
-        newComment.setArticle(article);
         boolean isCurrentUser = author.equals(currentUser);
 
         model.addAttribute("article", article);
         model.addAttribute("author", author);
         model.addAttribute("newComment", newComment);
-        model.addAttribute("isCurrentUser", isCurrentUser);
+        model.addAttribute("currentUser", currentUser);
 
         return "articleView";
     }
@@ -62,11 +60,15 @@ public class ArticleController {
         return "redirect:/article/"+newArticle.getId();
     }
 
-    @PostMapping("/comment/new")
-    public String appendComment(@ModelAttribute Comment newComment) {
-        return "redirect:/article/"+ articleService.addComment(newComment).getId();
+    @PostMapping("/article/{articleId}/comment/new")
+    public String appendComment(@ModelAttribute Comment newComment, @PathVariable Long articleId, @RequestParam Long authorId) {
+        return "redirect:/article/"+ articleService.addComment(articleId, authorId, newComment).getId();
     }
 
+    @GetMapping("/article/{articleId}/comment/{commentId}/delete")
+    public String deleteComment(@PathVariable Long articleId, @PathVariable Long commentId){
+        return "redirect:/article/"+ articleService.deleteComment(articleId, commentId).getId();
+    }
     @GetMapping("/article/{id}/delete")
     public String deleteArticle(@PathVariable Long id)
     {
