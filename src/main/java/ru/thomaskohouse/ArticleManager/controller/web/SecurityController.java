@@ -1,4 +1,4 @@
-package ru.thomaskohouse.ArticleManager.controller;
+package ru.thomaskohouse.ArticleManager.controller.web;
 
 import org.hibernate.dialect.SybaseSqlAstTranslator;
 import org.springframework.stereotype.Controller;

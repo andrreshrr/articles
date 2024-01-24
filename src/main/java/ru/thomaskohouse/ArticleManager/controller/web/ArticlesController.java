@@ -1,4 +1,4 @@
-package ru.thomaskohouse.ArticleManager.controller;
+package ru.thomaskohouse.ArticleManager.controller.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

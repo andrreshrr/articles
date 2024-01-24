@@ -1,12 +1,9 @@
-package ru.thomaskohouse.ArticleManager.controller;
+package ru.thomaskohouse.ArticleManager.controller.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.thomaskohouse.ArticleManager.entity.Article;
 import ru.thomaskohouse.ArticleManager.entity.User;
 import ru.thomaskohouse.ArticleManager.service.UserService;
@@ -69,5 +66,6 @@ public class UserController {
         user = userService.updateUser(id, user);
         return "redirect:/user/" + user.getId();
     }
+
 
 }
