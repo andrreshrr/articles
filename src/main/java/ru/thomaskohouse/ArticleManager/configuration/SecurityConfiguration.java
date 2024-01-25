@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .defaultSuccessUrl("/articles")
                         .failureUrl("/login-error"))
-                        .logout((logout) -> logout.logoutSuccessUrl("/logout"))
+                        .logout((logout) -> logout.logoutSuccessUrl("/logout-miss"))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/article/new").authenticated()        //для создания новой статьи надо залогиниться
                         .requestMatchers(HttpMethod.POST, "/article/new").authenticated()

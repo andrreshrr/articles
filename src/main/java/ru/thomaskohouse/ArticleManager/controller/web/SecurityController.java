@@ -13,24 +13,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class SecurityController {
 
-    @Controller
-    class LoginController {
-        @GetMapping("/login")
-        String login() {
-            return "login";
-        }
+    @GetMapping("/login")
+    String login() {
+        return "login";
+    }
 
-        @GetMapping("/logout")
-        String logout(Model model){
-            model.addAttribute("logout", "true");
-            return "login";
-        }
 
-        @GetMapping("/login-error")
-        String loginError(Model model){
-            model.addAttribute("error", "true");
-            return "login";
-        }
+    @GetMapping("/logout-miss")
+    String logout(Model model){
+        model.addAttribute("logout", "true");
+        return "login";
+    }
+
+    @GetMapping("/login-error")
+    String loginError(Model model){
+        model.addAttribute("error", "true");
+        return "login";
     }
 
 
