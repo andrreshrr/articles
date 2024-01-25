@@ -1,5 +1,6 @@
 package ru.thomaskohouse.ArticleManager.configuration;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
@@ -13,5 +14,10 @@ public class ThymeleafConfig {
     @Bean
     public SpringSecurityDialect springSecurityDialect(){
         return new SpringSecurityDialect();
+    }
+
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
 }

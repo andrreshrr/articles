@@ -1,5 +1,7 @@
 package ru.thomaskohouse.ArticleManager.controller.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.thomaskohouse.ArticleManager.dto.ArticleDto;
@@ -7,6 +9,7 @@ import ru.thomaskohouse.ArticleManager.service.ArticleService;
 
 @RestController
 @RequestMapping("api")
+@Tag(name = "Контроллер статей", description = "Позволяет манипулировать статьями")
 public class ArticleRestController {
 
     @Autowired
@@ -16,16 +19,29 @@ public class ArticleRestController {
         this.articleService = articleService;
     }
 
+    @Operation(
+            summary = "Получение информации о статье",
+            description = "Позволяет получить информацию о конкретной статье по её id"
+    )
     @GetMapping("/article/{id}")
     public ArticleDto getArticle(@PathVariable Long id){
         return articleService.getArticle(id);
     }
 
+    @Operation(
+            summary = "Создание новой статьи",
+            description = "Позволяет создать новую статью, передаваемое тело - тело статьи. Id автора должно быть в параметре запроса"
+    )
     @PostMapping("/article/new")
     public ArticleDto createArticle(@RequestBody ArticleDto articleDto, @RequestParam Long authorId){
-        return articleService.addArticle(articleDto, authorId);
+       return articleService.addArticle(articleDto, authorId);
     }
 
+
+    @Operation(
+            summary = "Удаление статьи",
+            description = "Позволяет удалить статью по её id"
+    )
     @DeleteMapping("/article/{id}")
     public String deleteArticle(@PathVariable Long id){
         articleService.deleteArticle(id);

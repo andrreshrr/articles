@@ -1,18 +1,10 @@
 package ru.thomaskohouse.ArticleManager.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Lazy;
 import ru.thomaskohouse.ArticleManager.dict.Sex;
-import ru.thomaskohouse.ArticleManager.entity.UserEntity;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -21,28 +13,40 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@Schema(description = "сущность пользователя")
 public class UserDto {
 
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     Long id;
 
+    @Schema(description = "Имя")
     String name;
 
+    @Schema(description = "Фамилия")
     String lastName;
 
+    @Schema(description = "Отчество")
     String middleName;
 
+    @Schema(description = "Город проживания")
     String city;
 
+    @Schema(description = "Пол", example = "MALE")
     Sex sex;
 
+    @Schema(description = "Уникальное имя пользователя в системе")
     String username;
 
+    @Schema(description = "Краткая информация о пользователе")
     String about;
 
+    @Schema(description = "Email")
     String email;
 
+    @Schema(description = "Дата рождения")
     LocalDate birthDate;
 
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     LocalDateTime registrationDateTime;
 
     public Long getAge(){

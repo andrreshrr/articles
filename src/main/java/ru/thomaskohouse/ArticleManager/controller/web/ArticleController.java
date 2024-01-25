@@ -1,5 +1,6 @@
 package ru.thomaskohouse.ArticleManager.controller.web;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
  * Контроллер для манипуляции одной статьей.
  * CRUD, добавление и удаление комментариев
  */
+@Hidden
 @Controller
 public class ArticleController {
     @Autowired
