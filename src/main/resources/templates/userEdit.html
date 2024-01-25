@@ -35,7 +35,7 @@
             <option value="NOT_DEFINED">Not defined</option>
         </select>
         <br/>
-        <input th:if="${isNewUser}" id = "password" required type="password" placeholder="Password" th:field="*{password}"/>
+        <input th:if="${isNewUser}" th:name="password" id = "password" required type="password" placeholder="Password"/>
         <div class="user_about">
             <textarea id="about" th:field="*{about}" placeholder="Short biography" rows ="10" cols="40"/>
         </div>

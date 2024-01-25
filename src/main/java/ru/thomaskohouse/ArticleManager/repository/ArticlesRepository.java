@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ArticlesRepository extends CrudRepository<ArticleEntity, Long> {
     List<ArticleEntity> findAllByOrderByCreationDateTimeDesc();
-    List<ArticleEntity> findTop5ByAuthorOrderByCreationDateTimeDesc(UserEntity author);
+    List<ArticleEntity> findTop5ByAuthorIdOrderByCreationDateTimeDesc(Long authorId);
     void deleteById(Long id);
 }

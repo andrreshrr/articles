@@ -21,20 +21,6 @@ import java.util.Objects;
 @NoArgsConstructor
 public class UserEntity {
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserEntity user = (UserEntity) o;
-
-        return Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,7 +65,4 @@ public class UserEntity {
     @Lazy
     LocalDateTime registrationDateTime;
 
-    public Long getAge(){
-        return ChronoUnit.YEARS.between(birthDate, LocalDate.now());
-    }
 }

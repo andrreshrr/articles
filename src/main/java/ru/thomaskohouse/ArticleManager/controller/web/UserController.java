@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.thomaskohouse.ArticleManager.dto.ArticleDto;
+import ru.thomaskohouse.ArticleManager.dto.UserDto;
 import ru.thomaskohouse.ArticleManager.entity.ArticleEntity;
 import ru.thomaskohouse.ArticleManager.entity.UserEntity;
 import ru.thomaskohouse.ArticleManager.service.UserService;
@@ -25,7 +27,7 @@ public class UserController {
 
     @GetMapping("/user/new")
     public String createUserForm(Model model){
-        model.addAttribute("user", new UserEntity());
+        model.addAttribute("user", new UserDto());
         model.addAttribute("isNewUser", true);
         return "userEdit";
     }
@@ -39,9 +41,9 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public String viewUser(@PathVariable Long id, Model model){
-        UserEntity user = userService.getUser(id);
-        List<ArticleEntity> userArticles = userService.getUserArticles(user);
-        boolean isCurrentUser = user.equals(userService.getCurrentUser());
+        UserDto user = userService.getUser(id);
+        List<ArticleDto> userArticles = userService.getUserArticles(user);
+        boolean isCurrentUser = user.equals(userService.getCurrentUserDto());
         model.addAttribute("user", user);
         model.addAttribute("isCurrentUser", isCurrentUser);
         model.addAttribute("haveArticles", (userArticles != null) && (!userArticles.isEmpty()));
@@ -52,17 +54,17 @@ public class UserController {
 
     @GetMapping("/user/profile")
     public String viewCurrentUser(){
-        return "redirect:/user/" + userService.getCurrentUser().getId();
+        return "redirect:/user/" + userService.getCurrentUserDto().getId();
     }
 
     @PostMapping("/user/new")
-    public String createNewUser(@ModelAttribute UserEntity user){
-        user = userService.addUser(user);
+    public String createNewUser(@ModelAttribute UserDto user, @RequestParam String password, Model model){
+        model.addAttribute("user", userService.addUser(user, password));
         return "userView";
     }
 
     @PostMapping("/user/{id}/update")
-    public String updateUser(@PathVariable Long id, @ModelAttribute UserEntity user){
+    public String updateUser(@PathVariable Long id, @ModelAttribute UserDto user){
         user = userService.updateUser(id, user);
         return "redirect:/user/" + user.getId();
     }

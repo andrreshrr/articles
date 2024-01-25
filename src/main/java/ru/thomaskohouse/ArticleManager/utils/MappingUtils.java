@@ -8,6 +8,9 @@ import ru.thomaskohouse.ArticleManager.entity.ArticleEntity;
 import ru.thomaskohouse.ArticleManager.entity.CommentEntity;
 import ru.thomaskohouse.ArticleManager.entity.UserEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class MappingUtils {
     public ArticleDto mapToArticleDto(ArticleEntity articleEntity){
@@ -96,5 +99,15 @@ public class MappingUtils {
         commentEntity.setArticle(mapToArticleEntity(commentDto.getArticle()));
         commentEntity.setAuthor(mapToUserEntity(commentDto.getAuthor()));
         return commentEntity;
+    }
+
+    public List<ArticleDto> mapToListArticleDto(List<ArticleEntity> articleEntities){
+        if (articleEntities == null)
+            return null;
+        List<ArticleDto> articleDtoList = new ArrayList<>(articleEntities.size());
+        for (ArticleEntity articleEntity : articleEntities) {
+            articleDtoList.add(mapToArticleDto(articleEntity));
+        }
+        return articleDtoList;
     }
 }

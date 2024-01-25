@@ -11,10 +11,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.context.annotation.Lazy;
 import ru.thomaskohouse.ArticleManager.dict.Sex;
+import ru.thomaskohouse.ArticleManager.entity.UserEntity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -46,4 +48,20 @@ public class UserDto {
     public Long getAge(){
         return ChronoUnit.YEARS.between(birthDate, LocalDate.now());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserDto user = (UserDto) o;
+
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
 }

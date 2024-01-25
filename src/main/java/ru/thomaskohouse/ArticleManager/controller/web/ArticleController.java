@@ -6,9 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import ru.thomaskohouse.ArticleManager.entity.ArticleEntity;
-import ru.thomaskohouse.ArticleManager.entity.CommentEntity;
-import ru.thomaskohouse.ArticleManager.entity.UserEntity;
+import ru.thomaskohouse.ArticleManager.dto.ArticleDto;
+import ru.thomaskohouse.ArticleManager.dto.CommentDto;
+import ru.thomaskohouse.ArticleManager.dto.UserDto;
 import ru.thomaskohouse.ArticleManager.service.ArticleService;
 import ru.thomaskohouse.ArticleManager.service.UserService;
 
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 
 /**
  * Контроллер для манипуляции одной статьей.
- * CRUD, добавление коммента
+ * CRUD, добавление и удаление комментариев
  */
 @Controller
 public class ArticleController {
@@ -28,11 +28,10 @@ public class ArticleController {
 
     @GetMapping("/article/{id}")
     public String viewArticle(@PathVariable Long id, Model model){
-        ArticleEntity article = articleService.getArticle(id); //загружаем тело статьи
-        UserEntity author = article.getAuthor();                      //загружаем автора
-        CommentEntity newComment = new CommentEntity();                     //готовим метаданные комментария
-        UserEntity currentUser = userService.getCurrentUser();
-        boolean isCurrentUser = author.equals(currentUser);
+        ArticleDto article = articleService.getArticle(id);      //загружаем тело статьи
+        UserDto author = article.getAuthor();                       //загружаем автора
+        CommentDto newComment = new CommentDto();                   //готовим метаданные комментария
+        UserDto currentUser = userService.getCurrentUserDto();
 
         model.addAttribute("article", article);
         model.addAttribute("author", author);
@@ -45,27 +44,27 @@ public class ArticleController {
     @GetMapping("/article/new")
     public String createArticleForm(Model model){
         model.addAttribute("isNewArticle", true);
-        model.addAttribute("article", new ArticleEntity());
+        model.addAttribute("article", new ArticleDto());
         return "articleEdit";
     }
 
     @PostMapping("/article/new")
-    public String createArticle(@ModelAttribute ArticleEntity article){
+    public String createArticle(@ModelAttribute ArticleDto article){
         article.setCreationDateTime(LocalDateTime.now());
-        UserEntity user = userService.getCurrentUser();
+        UserDto user = userService.getCurrentUserDto();
         article.setAuthor(user);
-        ArticleEntity newArticle = articleService.addArticle(article);
-        return "redirect:/article/"+newArticle.getId();
+        ArticleDto newArticle = articleService.addArticle(article, user.getId());
+        return "redirect:/article/" + newArticle.getId();
     }
 
     @PostMapping("/article/{articleId}/comment/new")
-    public String appendComment(@ModelAttribute CommentEntity newComment, @PathVariable Long articleId, @RequestParam Long authorId) {
+    public String appendComment(@ModelAttribute CommentDto newComment, @PathVariable Long articleId, @RequestParam Long authorId) {
         return "redirect:/article/"+ articleService.addComment(articleId, authorId, newComment).getId();
     }
 
     @GetMapping("/article/{articleId}/comment/{commentId}/delete")
     public String deleteComment(@PathVariable Long articleId, @PathVariable Long commentId){
-        return "redirect:/article/"+ articleService.deleteComment(articleId, commentId).getId();
+        return "redirect:/article/"+ articleService.deleteComment(articleId, commentId);
     }
     @GetMapping("/article/{id}/delete")
     public String deleteArticle(@PathVariable Long id)
@@ -86,10 +85,10 @@ public class ArticleController {
     }
 
     @PostMapping("/article/{id}/update")
-    public String updateArticle(Model model, ArticleEntity article, @PathVariable Long id){
+    public String updateArticle(Model model, ArticleDto article, @PathVariable Long id){
         if (!userService.isCurrentUserHaveArticle(id))
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "You can't edit this article");
-        ArticleEntity updatedArticle = articleService.updateArticle(article, id);
+        ArticleDto updatedArticle = articleService.updateArticle(article, id);
         model.addAttribute("article",  updatedArticle);
         return "redirect:/article/"+ updatedArticle.getId();
     }
