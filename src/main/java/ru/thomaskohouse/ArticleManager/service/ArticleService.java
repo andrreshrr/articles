@@ -69,14 +69,14 @@ public class ArticleService {
         return mappingUtils.mapToArticleDto(articlesRepository.save(articleEntity));
     }
 
-    public ArticleEntity addComment(Long articleId, Long authorId, CommentDto commentDto){
+    public Long addComment(Long articleId, Long authorId, CommentDto commentDto){
         CommentEntity commentEntity = mappingUtils.mapToCommentEntity(commentDto);
         commentEntity.setAuthor(userRepository.findById(authorId).orElseThrow());
         ArticleEntity article = articlesRepository.findById(articleId).orElseThrow();
         commentEntity.setArticle(article);
         commentEntity.setCreationDateTime(LocalDateTime.now());
         article.addComment(commentEntity);
-        return articlesRepository.save(article);
+        return articlesRepository.save(article).getId();
     }
 
     public void deleteArticle(Long id){

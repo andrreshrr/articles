@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.thomaskohouse.ArticleManager.dto.UserDto;
-import ru.thomaskohouse.ArticleManager.entity.UserEntity;
 import ru.thomaskohouse.ArticleManager.service.UserService;
 
 @RestController

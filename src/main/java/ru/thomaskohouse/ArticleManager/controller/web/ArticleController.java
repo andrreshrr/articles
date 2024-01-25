@@ -61,7 +61,7 @@ public class ArticleController {
 
     @PostMapping("/article/{articleId}/comment/new")
     public String appendComment(@ModelAttribute CommentDto newComment, @PathVariable Long articleId, @RequestParam Long authorId) {
-        return "redirect:/article/"+ articleService.addComment(articleId, authorId, newComment).getId();
+        return "redirect:/article/"+ articleService.addComment(articleId, authorId, newComment);
     }
 
     @GetMapping("/article/{articleId}/comment/{commentId}/delete")

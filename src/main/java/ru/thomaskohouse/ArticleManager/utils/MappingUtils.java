@@ -39,11 +39,6 @@ public class MappingUtils {
         return  modelMapper.map(userDto, UserEntity.class);
     }
 
-
-    public CommentDto mapToCommentDto(CommentEntity commentEntity){
-        return modelMapper.map(commentEntity, CommentDto.class);
-    }
-    
     public CommentEntity mapToCommentEntity(CommentDto commentDto){
         return  modelMapper.map(commentDto, CommentEntity.class);
     }
