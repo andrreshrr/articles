@@ -15,11 +15,11 @@ import java.util.List;
 @Table(name = "articles")
 @Getter
 @Setter
-public class Article {
+public class ArticleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
     String head;    //заголовок
 
     @Lazy
@@ -31,15 +31,15 @@ public class Article {
     String body;    //основной текст статьи
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    User author;    //автор статьи
+    UserEntity author;    //автор статьи
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "article", fetch = FetchType.LAZY)   //комменты к статье
-    List<Comment> comments = new ArrayList<>();
+    List<CommentEntity> comments = new ArrayList<>();
 
-    public void addComment(Comment comment){    //добавление коммента
+    public void addComment(CommentEntity comment){    //добавление коммента
         comments.add(comment);
     }
-    public void deleteComment(Comment comment){
+    public void deleteComment(CommentEntity comment){
         comments.remove(comment);
     }
 

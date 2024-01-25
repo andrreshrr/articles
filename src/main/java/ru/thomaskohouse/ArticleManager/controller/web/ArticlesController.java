@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.thomaskohouse.ArticleManager.entity.Article;
+import ru.thomaskohouse.ArticleManager.entity.ArticleEntity;
 import ru.thomaskohouse.ArticleManager.service.ArticleService;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class ArticlesController {
     @GetMapping("/articles/{currentPage}")
     public String concretePage(Model model, @PathVariable Integer currentPage){
         int pageSize = 10;
-        Page<Article> articlePage = service.getPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<ArticleEntity> articlePage = service.getPaginated(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("articlePage", articlePage);
         int totalPages = articlePage.getTotalPages();
         if (totalPages > 0) {

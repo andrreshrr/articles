@@ -29,6 +29,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {        //определяем форму логина, форму ошибки при логине, ссылку для выхода и запрет на адреса без аутенфикации
+        http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth.requestMatchers("/api*").permitAll()); //отключить csrf-токен при работе с API
         http
                 .formLogin(form -> form
                         .loginPage("/login")

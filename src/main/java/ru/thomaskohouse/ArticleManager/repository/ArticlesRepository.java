@@ -1,13 +1,13 @@
 package ru.thomaskohouse.ArticleManager.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import ru.thomaskohouse.ArticleManager.entity.Article;
-import ru.thomaskohouse.ArticleManager.entity.User;
+import ru.thomaskohouse.ArticleManager.entity.ArticleEntity;
+import ru.thomaskohouse.ArticleManager.entity.UserEntity;
 
 import java.util.List;
 
-public interface ArticlesRepository extends CrudRepository<Article, Long> {
-    List<Article> findAllByOrderByCreationDateTimeDesc();
-    List<Article> findTop5ByAuthorOrderByCreationDateTimeDesc(User author);
+public interface ArticlesRepository extends CrudRepository<ArticleEntity, Long> {
+    List<ArticleEntity> findAllByOrderByCreationDateTimeDesc();
+    List<ArticleEntity> findTop5ByAuthorOrderByCreationDateTimeDesc(UserEntity author);
     void deleteById(Long id);
 }

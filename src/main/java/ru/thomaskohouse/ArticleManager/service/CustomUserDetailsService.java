@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.thomaskohouse.ArticleManager.entity.UserEntity;
 import ru.thomaskohouse.ArticleManager.repository.UserRepository;
 
 /**
@@ -17,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository dao;
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        ru.thomaskohouse.ArticleManager.entity.User
+        UserEntity
                 myUser= dao.findByUsername(userName);
         if (myUser == null) {
             throw new UsernameNotFoundException("Unknown user: " + userName);

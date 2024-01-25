@@ -2,7 +2,8 @@ package ru.thomaskohouse.ArticleManager.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.thomaskohouse.ArticleManager.entity.Article;
+import ru.thomaskohouse.ArticleManager.dto.ArticleDto;
+import ru.thomaskohouse.ArticleManager.entity.ArticleEntity;
 import ru.thomaskohouse.ArticleManager.service.ArticleService;
 
 @RestController
@@ -17,8 +18,19 @@ public class ArticleRestController {
     }
 
     @GetMapping("/article/{id}")
-    public Article getArticle(@PathVariable Long id){
-        return articleService.getArticle(id);
+    public ArticleDto getArticle(@PathVariable Long id){
+        return articleService.getArticleDto(id);
+    }
+
+    @PostMapping("/article/new")
+    public ArticleDto createArticle(@RequestBody ArticleDto articleDto, @RequestParam Long authorId){
+        return articleService.addArticle(articleDto, authorId);
+    }
+
+    @DeleteMapping("/article/{id}")
+    public String deleteArticle(@PathVariable Long id){
+        articleService.deleteArticle(id);
+        return "success";
     }
 
 }
