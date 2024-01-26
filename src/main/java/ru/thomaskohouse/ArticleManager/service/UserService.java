@@ -1,6 +1,7 @@
 package ru.thomaskohouse.ArticleManager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -76,7 +77,7 @@ public class UserService {
         return  userRepository.findByUsername(username);
     }
     public UserDto getCurrentUserDto(){
-        return  mappingUtils.mapToUserDto(getCurrentUser());
+        return isCurrentUserAuthenticated() ? mappingUtils.mapToUserDto(getCurrentUser()) : null;
     }
 
     public List<ArticleDto> getUserArticles(UserDto user){
@@ -86,5 +87,19 @@ public class UserService {
     public boolean isCurrentUserHaveArticle(Long articleId){
         ArticleEntity article = articlesRepository.findById(articleId).orElseThrow();
         return getCurrentUser().equals(article.getAuthor());
+    }
+
+    public boolean isCurrentUserAuthenticated(){
+        return SecurityContextHolder.getContext().getAuthentication() != null &&
+                SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+                //тк включена анонимная сессия
+                !(SecurityContextHolder.getContext().getAuthentication()
+                        instanceof AnonymousAuthenticationToken);
+    }
+
+    public boolean isCurrentUserAdmin(){
+        UserDto currUser = getCurrentUserDto();
+
+        return currUser != null && currUser.isAdmin();
     }
 }

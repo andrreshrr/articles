@@ -434,6 +434,9 @@ a.delete_comment {
     padding: 0%;
 }
 
+#admin_checkbox {
+    margin-right: 3px;
+}
 
 
 div.author_and_date {

@@ -34,12 +34,12 @@ public class ArticleController {
         UserDto author = article.getAuthor();                       //загружаем автора
         CommentDto newComment = new CommentDto();                   //готовим метаданные комментария
         UserDto currentUser = userService.getCurrentUserDto();
-
+        boolean isAdmin = userService.isCurrentUserAdmin();
         model.addAttribute("article", article);
         model.addAttribute("author", author);
         model.addAttribute("newComment", newComment);
         model.addAttribute("currentUser", currentUser);
-
+        model.addAttribute("isAdmin", isAdmin);
         return "articleView";
     }
 
@@ -71,7 +71,7 @@ public class ArticleController {
     @GetMapping("/article/{id}/delete")
     public String deleteArticle(@PathVariable Long id)
     {
-        if (!userService.isCurrentUserHaveArticle(id))
+        if (!userService.isCurrentUserHaveArticle(id) && !userService.isCurrentUserAdmin())
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "You can't delete this article");
         articleService.deleteArticle(id);
         return "redirect:/articles/";
@@ -79,7 +79,7 @@ public class ArticleController {
 
     @GetMapping("/article/{id}/edit")
     public String editArticle(Model model, @PathVariable Long id){
-        if (!userService.isCurrentUserHaveArticle(id))
+        if (!userService.isCurrentUserHaveArticle(id) && !userService.isCurrentUserAdmin())
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "You can't edit this article");
         model.addAttribute("isNewArticle", false);
         model.addAttribute("article", articleService.getArticle(id));
@@ -88,7 +88,7 @@ public class ArticleController {
 
     @PostMapping("/article/{id}/update")
     public String updateArticle(Model model, ArticleDto article, @PathVariable Long id){
-        if (!userService.isCurrentUserHaveArticle(id))
+        if (!userService.isCurrentUserHaveArticle(id) && !userService.isCurrentUserAdmin())
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "You can't edit this article");
         ArticleDto updatedArticle = articleService.updateArticle(article, id);
         model.addAttribute("article",  updatedArticle);

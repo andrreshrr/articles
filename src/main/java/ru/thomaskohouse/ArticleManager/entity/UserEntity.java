@@ -48,6 +48,10 @@ public class UserEntity {
     String password;
 
     @NotNull
+    @Column(columnDefinition = "varchar(255) default 'USER'")
+    String role;
+
+    @NotNull
     @Column(columnDefinition = "boolean default true")
     boolean enabled;
 

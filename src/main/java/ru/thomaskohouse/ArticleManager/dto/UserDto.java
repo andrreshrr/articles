@@ -46,6 +46,9 @@ public class UserDto {
     @Schema(description = "Дата рождения")
     LocalDate birthDate;
 
+    @Schema(description = "Роль пользователя")
+    String role;
+
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     LocalDateTime registrationDateTime;
 
@@ -68,4 +71,7 @@ public class UserDto {
         return id != null ? id.hashCode() : 0;
     }
 
+    public boolean isAdmin(){
+        return role.equals("ADMIN");
+    }
 }

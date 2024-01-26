@@ -11,6 +11,7 @@ import ru.thomaskohouse.ArticleManager.entity.UserEntity;
 import ru.thomaskohouse.ArticleManager.service.UserService;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Контроллер для управления юзерами:
@@ -29,6 +30,7 @@ public class UserController {
     public String createUserForm(Model model){
         model.addAttribute("user", new UserDto());
         model.addAttribute("isNewUser", true);
+        model.addAttribute("isAdmin", false);
         return "userEdit";
     }
 
@@ -58,7 +60,10 @@ public class UserController {
     }
 
     @PostMapping("/user/new")
-    public String createNewUser(@ModelAttribute UserDto user, @RequestParam String password, Model model){
+    public String createNewUser(@ModelAttribute UserDto user, @RequestParam String password,
+                                @RequestParam String checkboxAdmin, Model model){
+        boolean isAdmin = checkboxAdmin.equals("on");
+        user.setRole(isAdmin ? "ADMIN" : "USER");
         model.addAttribute("user", userService.addUser(user, password));
         return "userView";
     }
