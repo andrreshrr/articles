@@ -21,7 +21,7 @@
         <div th:if="${author.equals(currentUser)}" class="modify_article">
             <ul>
                 <li class="little_margin thin button"><a th:href="@{/article/{id}/edit(id=${article.id})}"><i class="fa-solid fa-pen icon"></i>Edit</a></li>
-                <li class="little_margin thin logout_button"><a th:href="@{/article/{id}/delete(id=${article.id})}"><i class="fas fa-eraser icon"></i>Delete</a></li>
+                <li class="little_margin thin logout_button"><a th:href="@{/article/{id}/delete(id=${article.id})}" onClick="return window.confirm('Are you sure you want to delete the article?');"><i class="fas fa-eraser icon"></i>Delete</a></li>
             </ul>
         </div>
     </div>
@@ -57,7 +57,7 @@
                                 <span th:utext="${#temporals.format(comment.getCreationDateTime(), 'dd.MM.yyyy HH:mm')}"/>
                             </div>
                         </div>
-                        <a th:if="${comment.getAuthor().equals(currentUser)}" class = "author_link delete_comment" th:href="@{/article/{articleId}/comment/{commentId}/delete(articleId=${article.getId()}, commentId=${comment.getId()})}"><i class="fas fa-eraser icon delete_comment"></i></a>
+                        <a th:if="${comment.getAuthor().equals(currentUser)}" class = "author_link delete_comment" th:href="@{/article/{articleId}/comment/{commentId}/delete(articleId=${article.getId()}, commentId=${comment.getId()})}" onClick="return window.confirm('Are you sure you want to delete the comment?')"><i class="fas fa-eraser icon delete_comment"></i></a>
                     </div>
                     <div class="comment_body">
                         <td th:utext="${comment.getBody()}"/>
