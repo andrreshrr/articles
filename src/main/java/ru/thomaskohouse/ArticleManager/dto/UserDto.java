@@ -74,4 +74,22 @@ public class UserDto {
     public boolean isAdmin(){
         return role.equals("ADMIN");
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", city='" + city + '\'' +
+                ", sex=" + sex +
+                ", username='" + username + '\'' +
+                ", about='" + about + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate=" + birthDate +
+                ", role='" + role + '\'' +
+                ", registrationDateTime=" + registrationDateTime +
+                '}';
+    }
 }

@@ -12,8 +12,8 @@
     <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div th:insert="header.html :: body"> </div>
 
+<div th:insert="~{header.html :: body}"> </div>
 <div class = "user_container">
     <h1>
        <span th:text = "${user.username}"/> profile
@@ -66,5 +66,5 @@
 </body>
 
 
-<footer th:insert="footer.html :: body"> </footer>
+<footer th:insert="~{footer.html :: body}"> </footer>
 </html>

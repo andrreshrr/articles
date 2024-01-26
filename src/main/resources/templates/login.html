@@ -11,7 +11,7 @@
     <title>Please Log In</title>
 </head>
 <body>
-<div th:insert="header.html :: body"> </div>
+<div th:insert="~{header.html :: body}"> </div>
 
 
 <form class = "login_form" th:action="@{/login}" method="post">
@@ -30,5 +30,5 @@
 </form>
 </body>
 
-<footer th:insert="footer.html :: body"> </footer>
+<footer th:insert="~{footer.html :: body}"> </footer>
 </html>

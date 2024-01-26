@@ -2,6 +2,8 @@ package ru.thomaskohouse.ArticleManager.controller.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.thomaskohouse.ArticleManager.dto.UserDto;
@@ -14,6 +16,7 @@ public class UserRestController {
 
     @Autowired
     UserService userService;
+    Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Operation(
             summary = "Создание нового пользователя",
@@ -21,6 +24,7 @@ public class UserRestController {
     )
     @PostMapping("/user/new")
     public UserDto createUser(@RequestBody UserDto user, @RequestParam String password){
+        logger.info("API POST /user/new, new user: {}", user);
         return userService.addUser(user, password);
     }
 
@@ -31,6 +35,7 @@ public class UserRestController {
     )
     @GetMapping("/user/{id}")
     public UserDto getUser(@PathVariable Long id){
+        logger.info("API GET /user/{}", id);
         return userService.getUser(id);
     }
 

@@ -2,6 +2,8 @@ package ru.thomaskohouse.ArticleManager.controller.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.thomaskohouse.ArticleManager.dto.ArticleDto;
@@ -14,6 +16,7 @@ public class ArticleRestController {
 
     @Autowired
     final ArticleService articleService;
+    Logger logger = LoggerFactory.getLogger(ArticleRestController.class);
 
     public ArticleRestController(ArticleService articleService) {
         this.articleService = articleService;
@@ -25,6 +28,7 @@ public class ArticleRestController {
     )
     @GetMapping("/article/{id}")
     public ArticleDto getArticle(@PathVariable Long id){
+        logger.info("API GET /article/{}", id);
         return articleService.getArticle(id);
     }
 
@@ -34,7 +38,8 @@ public class ArticleRestController {
     )
     @PostMapping("/article/new")
     public ArticleDto createArticle(@RequestBody ArticleDto articleDto, @RequestParam Long authorId){
-       return articleService.addArticle(articleDto, authorId);
+        logger.info("API POST /article/new, article body: {}, authorId: {}", articleDto, authorId);
+        return articleService.addArticle(articleDto, authorId);
     }
 
 
@@ -44,6 +49,7 @@ public class ArticleRestController {
     )
     @DeleteMapping("/article/{id}")
     public String deleteArticle(@PathVariable Long id){
+        logger.info("API DELETE /article/{}", id);
         articleService.deleteArticle(id);
         return "success";
     }

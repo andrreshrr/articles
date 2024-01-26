@@ -12,7 +12,7 @@
     <script src="https://kit.fontawesome.com/535c5bd745.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div th:insert="header.html :: body"> </div>
+    <div th:insert="~{header.html :: body}"> </div>
     <h2>Что вершит судьбу человечества в этом мире? Некое незримое существо или закон, подобно длани господней, парящей над миром?<br>
         По крайней мере, истинно то, что человек не властен даже над своей волей.</h2>
     <div class="page_navigation">
@@ -43,7 +43,7 @@
     </div>
 </body>
 
-<footer th:insert="footer.html :: body"> </footer>
+<footer th:insert="~{footer.html :: body}"> </footer>
 
 
 </html>

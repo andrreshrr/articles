@@ -18,4 +18,15 @@ public class CommentDto {
     @JsonBackReference
     ArticleDto article;
     LocalDateTime creationDateTime;
+
+    @Override
+    public String toString() {
+        return "CommentDto{" +
+                "id=" + id +
+                ", body='" + body + '\'' +
+                ", author=" + author +
+                ", article=" + article +
+                ", creationDateTime=" + creationDateTime +
+                '}';
+    }
 }

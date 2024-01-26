@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<div th:insert="header.html :: body"> </div>
+<div th:insert="~{header.html :: body}"> </div>
 <form id="margin_form" method="post" th:action="${isNewUser} ? @{/user/new} : @{/user/{id}/update(id=${user.id})}" th:object="${user}">
     <div class="user_register_from">
         <input th:if="${isNewUser}" id="username" required type="text" th:field="*{username}" placeholder="Username"/>
@@ -52,6 +52,6 @@
 </form>
 </body>
 
-<footer th:insert="footer.html :: body"> </footer>
+<footer th:insert="~{footer.html :: body}"> </footer>
 
 </html>

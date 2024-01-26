@@ -34,4 +34,15 @@ public class ArticleDto {
     @JsonManagedReference
     List<CommentDto> comments = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "ArticleDto{" +
+                "id=" + id +
+                ", head='" + head + '\'' +
+                ", body='" + body + '\'' +
+                ", creationDateTime=" + creationDateTime +
+                ", author=" + author +
+                ", comments=" + comments +
+                '}';
+    }
 }

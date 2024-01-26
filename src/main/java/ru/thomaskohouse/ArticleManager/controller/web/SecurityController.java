@@ -1,10 +1,10 @@
 package ru.thomaskohouse.ArticleManager.controller.web;
 
-import org.hibernate.dialect.SybaseSqlAstTranslator;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.slf4j.Logger;
 
 
 /**
@@ -12,21 +12,26 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class SecurityController {
-
+    Logger logger = LoggerFactory.getLogger(SecurityController.class);
     @GetMapping("/login")
     String login() {
+        logger.info("Web Request /login");
         return "login";
     }
 
 
     @GetMapping("/logout-miss")
     String logout(Model model){
+
+        logger.info("Web Request /logout-miss");
         model.addAttribute("logout", "true");
         return "login";
     }
 
     @GetMapping("/login-error")
     String loginError(Model model){
+
+        logger.info("Web Request /login-error");
         model.addAttribute("error", "true");
         return "login";
     }
