@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.thomaskohouse.ArticleManager.dict.SearchType;
 import ru.thomaskohouse.ArticleManager.dto.ArticleDto;
 import ru.thomaskohouse.ArticleManager.service.ArticleService;
 
@@ -24,7 +26,7 @@ import java.util.stream.IntStream;
 public class ArticlesController {
 
     @Autowired
-    ArticleService service;
+    ArticleService articleService;
 
     Logger logger = LoggerFactory.getLogger(ArticlesController.class);
 
@@ -37,7 +39,7 @@ public class ArticlesController {
     public String concretePage(Model model, @PathVariable Integer currentPage){
         logger.info("Web Request to /articles/"+currentPage);
         int pageSize = 10;
-        Page<ArticleDto> articlePage = service.getPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<ArticleDto> articlePage = articleService.getPaginated(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("articlePage", articlePage);
         int totalPages = articlePage.getTotalPages();
         if (totalPages > 0) {
@@ -47,6 +49,28 @@ public class ArticlesController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         model.addAttribute("currentPage", currentPage);
+
+        return "articles";
+    }
+
+    @GetMapping("/articles/search")
+    public String search(RedirectAttributes redirectAttributes,
+                         @RequestParam SearchType searchBy, @RequestParam String searchFor){
+
+        redirectAttributes.addAttribute("searchBy", searchBy);
+        redirectAttributes.addAttribute("searchFor", searchFor);
+
+        return "redirect:/articles/search/1";
+    }
+
+
+    @GetMapping("/articles/search/{id}")
+    public String searchPage(Model model, @PathVariable Integer id,
+                             @RequestParam SearchType searchBy, @RequestParam String searchFor){
+        logger.info("Web request to articles/search/{}, searchFor: {}, searchBy: {}", id, searchFor, searchBy);
+
+        //TO-DO
+
         return "articles";
     }
 }

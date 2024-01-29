@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.thomaskohouse.ArticleManager.dict.SearchType;
 import ru.thomaskohouse.ArticleManager.dto.ArticleDto;
 import ru.thomaskohouse.ArticleManager.dto.CommentDto;
 import ru.thomaskohouse.ArticleManager.entity.CommentEntity;
@@ -56,6 +57,20 @@ public class ArticleService {
         return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), allArticles.size());
     }
 
+    public Page<ArticleDto> getPaginated(Pageable pageable, String searchFor, SearchType searchType){      //получить страницу со статьями
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int currentItem = currentPage * pageSize;
+        List<ArticleDto> list;
+        List<ArticleDto> allArticles = mappingUtils.mapToListArticleDto(articlesRepository.findAllByOrderByCreationDateTimeDesc());
+        if (allArticles.size() < currentItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(currentItem + pageSize, allArticles.size());
+            list = allArticles.subList(currentItem, toIndex);
+        }
+        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), allArticles.size());
+    }
 
     public ArticleDto getArticle(Long id){
         return mappingUtils.mapToArticleDto(articlesRepository.findById(id).orElseThrow());

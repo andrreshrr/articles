@@ -150,7 +150,7 @@ div.ck-editor__editable > * {
     all:revert;
 }
 
-li.button a {
+li.button a, div.search_container > a {
     border: #92A88C;
     border-style: solid;
     border-width: thin;
@@ -505,4 +505,26 @@ div.modify_article > ul {
 
 #margin_form {
     margin-bottom: 5.5%;
+}
+
+div.search_container {
+    text-align: center;
+    margin: 1%;
+}
+
+div.search_container > input {
+    width: 20%;
+    padding: 0.5%;
+    font-size: 120%;
+}
+
+div.search_container > select {
+    font-size: 120%;
+    padding: 0.5%;
+}
+
+
+div.search_container > a {
+    font-size: 120%;
+    margin-left: 3%;
 }
