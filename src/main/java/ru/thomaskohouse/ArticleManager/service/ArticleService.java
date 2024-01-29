@@ -1,5 +1,6 @@
 package ru.thomaskohouse.ArticleManager.service;
 
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,21 +21,20 @@ import ru.thomaskohouse.ArticleManager.utils.MappingUtils;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Сервис для работы со статьями
  */
 @Service
 public class ArticleService {
-    @Autowired
-    final ArticlesRepository articlesRepository;
-    @Autowired
-    final CommentRepository commentRepository;
-    @Autowired
-    final UserRepository userRepository;
-    @Autowired
-    final MappingUtils mappingUtils;
 
+    private final ArticlesRepository articlesRepository;
+    private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
+    private final MappingUtils mappingUtils;
+
+    @Autowired
     public ArticleService(ArticlesRepository articlesRepository, CommentRepository commentRepository, UserRepository userRepository, MappingUtils mappingUtils) {
         this.articlesRepository = articlesRepository;
         this.commentRepository = commentRepository;
@@ -42,36 +42,57 @@ public class ArticleService {
         this.mappingUtils = mappingUtils;
     }
 
-    public Page<ArticleDto> getPaginated(Pageable pageable){      //получить страницу со статьями
+    public Page<ArticleDto> getPageWithArticles(Pageable pageable){
+        return getPageWithArticles(pageable, false, null, null);
+    }
+
+    public Page<ArticleDto> getPageWithArticles(Pageable pageable, SearchType searchType, String searchFor){
+        return getPageWithArticles(pageable, true, searchType, searchFor);
+    }
+    
+    private Page<ArticleDto> getPageWithArticles(Pageable pageable, Boolean isSearch, @Nullable SearchType searchType, @Nullable String searchFor){
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int currentItem = currentPage * pageSize;
-        List<ArticleDto> list;
-        List<ArticleDto> allArticles = mappingUtils.mapToListArticleDto(articlesRepository.findAllByOrderByCreationDateTimeDesc());
+        List<ArticleDto> list, allArticles;
+        if (!isSearch) {
+            allArticles = mappingUtils.mapToListArticleDto(articlesRepository.findAllByOrderByCreationDateTimeDesc());
+        } else {
+            switch (searchType){
+                case BY_TITLE -> allArticles = mappingUtils.mapToListArticleDto(
+                        articlesRepository.findAllByHeadContainsIgnoreCaseOrderByCreationDateTimeDesc(searchFor)
+                );
+                case BY_ARTICLE_BODY -> allArticles = mappingUtils.mapToListArticleDto(
+                        articlesRepository.findAllByBodyContainsIgnoreCaseOrderByCreationDateTimeDesc(searchFor)
+                );
+                case BY_AUTHOR -> allArticles = mappingUtils.mapToListArticleDto(
+                        articlesRepository.findAllByAuthor_NameContainsIgnoreCaseOrAuthor_MiddleNameContainsIgnoreCaseOrAuthor_LastNameContainsIgnoreCaseOrderByCreationDateTimeDesc(
+                                searchFor, searchFor, searchFor
+                        )
+                );
+                default -> throw new RuntimeException("Wrong search type!");
+            }
+        }
         if (allArticles.size() < currentItem) {
             list = Collections.emptyList();
         } else {
             int toIndex = Math.min(currentItem + pageSize, allArticles.size());
             list = allArticles.subList(currentItem, toIndex);
         }
+
         return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), allArticles.size());
     }
 
-    public Page<ArticleDto> getPaginated(Pageable pageable, String searchFor, SearchType searchType){      //получить страницу со статьями
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int currentItem = currentPage * pageSize;
-        List<ArticleDto> list;
-        List<ArticleDto> allArticles = mappingUtils.mapToListArticleDto(articlesRepository.findAllByOrderByCreationDateTimeDesc());
-        if (allArticles.size() < currentItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(currentItem + pageSize, allArticles.size());
-            list = allArticles.subList(currentItem, toIndex);
+    public List<Integer> getPageRange(Integer totalPages){
+        List<Integer> pageNumbers = null;
+        if (totalPages > 0) {
+            pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .toList();
         }
-        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), allArticles.size());
+        return pageNumbers;
     }
-
+    
     public ArticleDto getArticle(Long id){
         return mappingUtils.mapToArticleDto(articlesRepository.findById(id).orElseThrow());
     }

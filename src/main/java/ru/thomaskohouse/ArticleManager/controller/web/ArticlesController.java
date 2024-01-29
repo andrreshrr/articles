@@ -13,10 +13,6 @@ import ru.thomaskohouse.ArticleManager.dict.SearchType;
 import ru.thomaskohouse.ArticleManager.dto.ArticleDto;
 import ru.thomaskohouse.ArticleManager.service.ArticleService;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 
 /**
  * Манипуляция списком статей
@@ -24,11 +20,16 @@ import java.util.stream.IntStream;
  */
 @Controller
 public class ArticlesController {
+    private final ArticleService articleService;
+
+    private final int pageSize = 10;
+
+    private final Logger logger = LoggerFactory.getLogger(ArticlesController.class);
 
     @Autowired
-    ArticleService articleService;
-
-    Logger logger = LoggerFactory.getLogger(ArticlesController.class);
+    public ArticlesController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     @GetMapping({"", "/articles", "/articles/"})
     public String firstPage(){
@@ -38,17 +39,12 @@ public class ArticlesController {
     @GetMapping("/articles/{currentPage}")
     public String concretePage(Model model, @PathVariable Integer currentPage){
         logger.info("Web Request to /articles/"+currentPage);
-        int pageSize = 10;
-        Page<ArticleDto> articlePage = articleService.getPaginated(PageRequest.of(currentPage - 1, pageSize));
+
+        Page<ArticleDto> articlePage = articleService.getPageWithArticles(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("articlePage", articlePage);
-        int totalPages = articlePage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
+        model.addAttribute("pageNumbers",  articleService.getPageRange(articlePage.getTotalPages()));
         model.addAttribute("currentPage", currentPage);
+        model.addAttribute("isSearch", false);
 
         return "articles";
     }
@@ -64,12 +60,18 @@ public class ArticlesController {
     }
 
 
-    @GetMapping("/articles/search/{id}")
-    public String searchPage(Model model, @PathVariable Integer id,
+    @GetMapping("/articles/search/{currentPage}")
+    public String searchPage(Model model, @PathVariable Integer currentPage,
                              @RequestParam SearchType searchBy, @RequestParam String searchFor){
-        logger.info("Web request to articles/search/{}, searchFor: {}, searchBy: {}", id, searchFor, searchBy);
+        logger.info("Web request to articles/search/{}, searchFor: {}, searchBy: {}", currentPage, searchFor, searchBy);
 
-        //TO-DO
+        Page<ArticleDto> articlePage = articleService.getPageWithArticles(PageRequest.of(currentPage - 1, pageSize), searchBy, searchFor);
+        model.addAttribute("articlePage", articlePage);
+        model.addAttribute("pageNumbers",  articleService.getPageRange(articlePage.getTotalPages()));
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("isSearch", true);
+        model.addAttribute("searchBy", searchBy);
+        model.addAttribute("searchFor", searchFor);
 
         return "articles";
     }

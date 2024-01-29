@@ -25,12 +25,18 @@ import java.time.LocalDateTime;
 @Hidden
 @Controller
 public class ArticleController {
-    @Autowired
-    ArticleService articleService;
-    @Autowired
-    UserService userService;
+    private final ArticleService articleService;
 
-    Logger logger = LoggerFactory.getLogger(ArticleController.class);
+    private final UserService userService;
+
+    private final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+
+    @Autowired
+    public ArticleController(ArticleService articleService, UserService userService) {
+        this.articleService = articleService;
+        this.userService = userService;
+    }
+
     @GetMapping("/article/{id}")
     public String viewArticle(@PathVariable Long id, Model model){
         logger.info("Web Request to /article/"+id);

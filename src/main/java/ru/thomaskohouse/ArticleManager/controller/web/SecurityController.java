@@ -12,7 +12,8 @@ import org.slf4j.Logger;
  */
 @Controller
 public class SecurityController {
-    Logger logger = LoggerFactory.getLogger(SecurityController.class);
+    private final Logger logger = LoggerFactory.getLogger(SecurityController.class);
+
     @GetMapping("/login")
     String login() {
         logger.info("Web Request /login");

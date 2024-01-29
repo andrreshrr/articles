@@ -512,7 +512,7 @@ div.search_container {
     margin: 1%;
 }
 
-div.search_container > input {
+div.search_container > input[type=text] {
     width: 20%;
     padding: 0.5%;
     font-size: 120%;
@@ -521,8 +521,16 @@ div.search_container > input {
 div.search_container > select {
     font-size: 120%;
     padding: 0.5%;
+    background: white;
+    color: #92A88C;
+    width: 180;
 }
 
+#search_button {
+    width: auto;
+    margin-left: 40px;
+    padding-inline: 0.5%;
+}
 
 div.search_container > a {
     font-size: 120%;

@@ -22,18 +22,15 @@ import java.util.List;
  */
 @Service
 public class UserService {
-
-    @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
     private final ArticlesRepository articlesRepository;
 
-    @Autowired
     private final PasswordEncoder passwordEncoder;
-    @Autowired
+
     private final MappingUtils mappingUtils;
 
+    @Autowired
     public UserService(UserRepository userRepository, ArticlesRepository articlesRepository, PasswordEncoder passwordEncoder, MappingUtils mappingUtils) {
         this.userRepository = userRepository;
         this.articlesRepository = articlesRepository;

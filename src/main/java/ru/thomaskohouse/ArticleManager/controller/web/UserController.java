@@ -18,10 +18,12 @@ import java.util.List;
  */
 @Controller
 public class UserController {
-    @Autowired
-    final UserService userService;
-    Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    private final UserService userService;
+
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
     UserController(UserService userService){
         this.userService = userService;
     }
