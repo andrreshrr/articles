@@ -14,10 +14,10 @@ import ru.thomaskohouse.ArticleManager.service.ArticleService;
 @Tag(name = "Контроллер статей", description = "Позволяет манипулировать статьями")
 public class ArticleRestController {
 
-    @Autowired
-    final ArticleService articleService;
-    Logger logger = LoggerFactory.getLogger(ArticleRestController.class);
+    private final ArticleService articleService;
+    private Logger logger = LoggerFactory.getLogger(ArticleRestController.class);
 
+    @Autowired
     public ArticleRestController(ArticleService articleService) {
         this.articleService = articleService;
     }

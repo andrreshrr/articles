@@ -18,11 +18,8 @@ import java.util.List;
  */
 @Controller
 public class UserController {
-
     private final UserService userService;
-
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
     UserController(UserService userService){
         this.userService = userService;
@@ -67,8 +64,8 @@ public class UserController {
 
     @PostMapping("/user/new")
     public String createNewUser(@ModelAttribute UserDto user, @RequestParam String password,
-                                @RequestParam String checkboxAdmin, Model model){
-        boolean isAdmin = checkboxAdmin.equals("on");
+                                @RequestParam(required = false) String checkboxAdmin, Model model){
+        boolean isAdmin = checkboxAdmin != null && checkboxAdmin.equals("on");
         user.setRole(isAdmin ? "ADMIN" : "USER");
         logger.info("Web Request POST /user/new, new user: {}", user);
         model.addAttribute("user", userService.addUser(user, password));
@@ -81,6 +78,4 @@ public class UserController {
         user = userService.updateUser(id, user);
         return "redirect:/user/" + user.getId();
     }
-
-
 }

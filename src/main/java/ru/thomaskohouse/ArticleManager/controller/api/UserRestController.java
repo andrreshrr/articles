@@ -13,10 +13,12 @@ import ru.thomaskohouse.ArticleManager.service.UserService;
 @RequestMapping("/api")
 @Tag(name = "Контроллер пользователей", description = "Позволяет манипулировать пользователями")
 public class UserRestController {
-
+    private final UserService userService;
+    private final Logger logger = LoggerFactory.getLogger(UserRestController.class);
     @Autowired
-    UserService userService;
-    Logger logger = LoggerFactory.getLogger(UserRestController.class);
+    public UserRestController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Operation(
             summary = "Создание нового пользователя",

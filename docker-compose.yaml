@@ -5,19 +5,19 @@ services:
     image: 'rreshrr/articles:latest'
     build: ./
     ports:
-      - 1125:1125
+      - 8085:1125
     depends_on:
       - postgres
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
       - SPRING_DATASOURCE_USERNAME=data
       - SPRING_DATASOURCE_PASSWORD=data
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
   postgres:
     image: 'postgres:13.1-alpine'
     container_name: 'postgresqldb'
     ports:
-      - 5432:5432
+      - 5444:5432
     environment:
       - 'POSTGRES_PASSWORD=data'
       - 'POSTGRES_USER=data'

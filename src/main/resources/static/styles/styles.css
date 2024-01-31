@@ -345,7 +345,7 @@ footer {
     background-color: #92A88C;
     height: 40px;
     line-height: 40px;
-    font-size: x-large;
+    font-size: xx-large;
 }
 
 *.refuse_button {
@@ -535,4 +535,16 @@ div.search_container > select {
 div.search_container > a {
     font-size: 120%;
     margin-left: 3%;
+}
+
+blockquote > p {
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+}
+
+div.no_articles {
+    text-align: center;
+    margin: 100px;
+    font-size: x-large;
 }

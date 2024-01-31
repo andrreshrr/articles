@@ -37,7 +37,7 @@
         <br/>
         <input th:if="${isNewUser}" th:name="password" id = "password" required type="password" placeholder="Password"/>
 
-        <input th:if="${isNewUser}" id="admin_checkbox" type="checkbox" th:name="checkboxAdmin"/>
+        <input th:if="${isNewUser}" id="admin_checkbox" type="checkbox" name="checkboxAdmin">
         <label th:if="${isNewUser}"  for="admin_checkbox">Is Admin?</label>
 
         <div class="user_about">

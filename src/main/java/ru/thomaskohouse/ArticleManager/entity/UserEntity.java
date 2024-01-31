@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users", schema = "article_service")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor

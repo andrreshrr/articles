@@ -30,7 +30,11 @@
         </tr>
     </div>
 
-    <div class = "elements_container">
+    <div th:if="${articlePage.isEmpty()}" class = "no_articles">
+        There are no articles here today :(
+    </div>
+
+    <div th:unless="${articlePage.isEmpty()}" class = "elements_container">
         <tbody>
             <tr th:each="article, iStat : ${articlePage.content}">
                 <div class="list_element">

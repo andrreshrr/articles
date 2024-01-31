@@ -20,7 +20,6 @@ public class SecurityController {
         return "login";
     }
 
-
     @GetMapping("/logout-miss")
     String logout(Model model){
 
@@ -36,6 +35,4 @@ public class SecurityController {
         model.addAttribute("error", "true");
         return "login";
     }
-
-
 }
