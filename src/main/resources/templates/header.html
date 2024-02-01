@@ -20,7 +20,7 @@
         </rr>
         <rr sec:authorize="isAuthenticated()">
             <li class = "little_margin thin button"> <a th:href = "@{/user/profile}">My Profile </a></li>
-            <li class = "last_element thin logout_button"> <a href = "javascript: document.logout_form.submit()">Log Out</a> </li>
+            <li class = "last_element thin logout_button"> <a onClick="return window.confirm('Are you sure you want to Log Out?')" href = "javascript: document.logout_form.submit()">Log Out</a> </li>
             <form name = "logout_form" method="post" th:action="@{/logout}" th:hidden="true">
                 <input hidden type="submit" value="Log Out"/>
             </form>

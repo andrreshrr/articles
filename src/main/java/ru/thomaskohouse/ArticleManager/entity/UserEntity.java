@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.context.annotation.Lazy;
 import ru.thomaskohouse.ArticleManager.dict.Sex;
@@ -17,22 +18,9 @@ import java.util.Objects;
 @Table(name = "users")
 @Getter
 @Setter
-public class User {
+@NoArgsConstructor
+public class UserEntity {
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +48,10 @@ public class User {
     String password;
 
     @NotNull
+    @Column(columnDefinition = "varchar(255) default 'USER'")
+    String role;
+
+    @NotNull
     @Column(columnDefinition = "boolean default true")
     boolean enabled;
 
@@ -77,7 +69,4 @@ public class User {
     @Lazy
     LocalDateTime registrationDateTime;
 
-    public Long getAge(){
-        return ChronoUnit.YEARS.between(birthDate, LocalDate.now());
-    }
 }

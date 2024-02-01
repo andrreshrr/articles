@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/articles/search" method="get">
+        <div class="search_container">
+            <input type="text" th:name="searchFor" placeholder="the word you are looking for..." required th:value="${searchFor}"/>
+            <select th:name="searchBy" required>
+                <option th:each="searchType : ${T(ru.thomaskohouse.ArticleManager.dict.SearchType).values()}"
+                        th:value="${searchType}" th:text="${searchType.getDisplayValue()}" th:selected="${searchType.equals(searchBy)}"></option>
+            </select>
+            <input id="search_button" type="submit" value="Search"/>
+        </div>
+    </form>
+</body>
+</html>

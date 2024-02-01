@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "comments")
 @Getter
 @Setter
-public class Comment {
+public class CommentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +20,10 @@ public class Comment {
     String body;
 
     @ManyToOne
-    User author;
+    UserEntity author;
 
     @ManyToOne
-    Article article;
+    ArticleEntity article;
 
     LocalDateTime creationDateTime;
 }

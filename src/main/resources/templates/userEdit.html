@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Register</title>
+    <title th:text="${isNewUser} ? Register : Update"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/styles/styles.css}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,10 +14,11 @@
 
 </head>
 <body>
-<div th:insert="header.html :: body"> </div>
-<form id="margin_form" method="post" th:action="@{/user/new}" th:object="${user}">
+<div th:insert="~{header.html :: body}"> </div>
+<form id="margin_form" method="post" th:action="${isNewUser} ? @{/user/new} : @{/user/{id}/update(id=${user.id})}" th:object="${user}">
     <div class="user_register_from">
-        <input id="username" required type="text" th:field="*{username}" placeholder="Username"/>
+        <input th:if="${isNewUser}" id="username" required type="text" th:field="*{username}" placeholder="Username"/>
+        <input th:unless="${isNewUser}" disabled required type="text" th:field="*{username}" placeholder="Username"/>
         <input id = "email" required type="email" th:field="*{email}" placeholder="Email">
         <input id = "city" required type="text" th:field="*{city}" placeholder="City"/>
         </br>
@@ -25,26 +26,32 @@
         <input id = "name" required type="text" th:field="*{name}" placeholder="First Name"/>
         <input id = "middle_name" required type="text" th:field="*{middleName}" placeholder="Middle Name"/>
         <br/>
-        <input id = "birthDate" required type = "date" th:field="*{birthDate}" placeholder="Birth Date">
-        <select id="sex" required th:field="*{sex}">
+
+        <input th:if="${isNewUser}" id ="birthDate" required type = "date" th:field="*{birthDate}" th:value="${#dates.format(birthDate , 'YYYY-MM-DD')}" placeholder="Birth Date">
+        <select th:if="${isNewUser}" id="sex" required th:field="*{sex}">
             <option value="" hidden="">Sex</option>
             <option value="MALE">Male</option>
             <option value="FEMALE">Female</option>
             <option value="NOT_DEFINED">Not defined</option>
         </select>
         <br/>
-        <input id = "password" required type="password" placeholder="Password" th:field="*{password}"/>
+        <input th:if="${isNewUser}" th:name="password" id = "password" required type="password" placeholder="Password"/>
+
+        <input th:if="${isNewUser}" id="admin_checkbox" type="checkbox" name="checkboxAdmin">
+        <label th:if="${isNewUser}"  for="admin_checkbox">Is Admin?</label>
+
         <div class="user_about">
             <textarea id="about" th:field="*{about}" placeholder="Short biography" rows ="10" cols="40"/>
         </div>
     </div>
     <div class="buttons_container">
         <a id="cancel_button" class="refuse_button thin" style="margin-right: 3%; padding-inline: 4%;" th:href="@{~/articles/1}">Cancel</a>
-        <input class="big_button thin" type="submit" value="Create">
+        <input th:if="${isNewUser}" class="big_button thin" type="submit" value="Create">
+        <input th:unless="${isNewUser}" class="big_button thin" type="submit" value="Update">
     </div>
 </form>
 </body>
 
-<footer th:insert="footer.html :: body"> </footer>
+<footer th:insert="~{footer.html :: body}"> </footer>
 
 </html>

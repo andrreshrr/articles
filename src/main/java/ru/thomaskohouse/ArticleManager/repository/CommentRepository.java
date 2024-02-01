@@ -1,7 +1,9 @@
 package ru.thomaskohouse.ArticleManager.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import ru.thomaskohouse.ArticleManager.entity.Comment;
+import ru.thomaskohouse.ArticleManager.entity.CommentEntity;
 
-public interface CommentRepository extends CrudRepository<Comment, Long> {
+import java.util.List;
+
+public interface CommentRepository extends CrudRepository<CommentEntity, Long> {
 }

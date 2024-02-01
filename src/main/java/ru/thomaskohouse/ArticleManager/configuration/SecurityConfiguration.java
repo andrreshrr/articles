@@ -29,12 +29,13 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {        //определяем форму логина, форму ошибки при логине, ссылку для выхода и запрет на адреса без аутенфикации
+        http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth.requestMatchers("/api*").permitAll()); //отключить csrf-токен при работе с API
         http
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/articles")
                         .failureUrl("/login-error"))
-                        .logout((logout) -> logout.logoutSuccessUrl("/logout"))
+                        .logout((logout) -> logout.logoutSuccessUrl("/logout-miss"))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/article/new").authenticated()        //для создания новой статьи надо залогиниться
                         .requestMatchers(HttpMethod.POST, "/article/new").authenticated()

@@ -150,7 +150,7 @@ div.ck-editor__editable > * {
     all:revert;
 }
 
-li.button a {
+li.button a, div.search_container > a {
     border: #92A88C;
     border-style: solid;
     border-width: thin;
@@ -345,7 +345,7 @@ footer {
     background-color: #92A88C;
     height: 40px;
     line-height: 40px;
-    font-size: x-large;
+    font-size: xx-large;
 }
 
 *.refuse_button {
@@ -423,9 +423,53 @@ div.comment_body {
     margin-top: 2%;
 }
 
+div.comment_header_inline {
+    display: inline-block;
+    width: 100%;
+}
+
+a.delete_comment {
+    float: inline-end;
+    color: lightgray;
+    padding: 0%;
+}
+
+#admin_checkbox {
+    margin-right: 3px;
+}
+
+
+div.author_and_date {
+    float: inline-start;
+}
+
 
 a.author_link:link, a.author_link:visited {
     padding: 0%;
+}
+
+a.author_link {
+    color: darkgray;
+    text-decoration: none;
+}
+
+a.author_link > span {
+    color: darkgray;
+    font-size: 90%;
+}
+
+a.author_link:hover > span {
+    color: #92A88C;
+    text-decoration: underline;
+    cursor: pointer;
+    background: white;
+}
+
+a.author_link:hover, div.author:hover {
+    color: #92A88C;
+    text-decoration: underline;
+    cursor: pointer;
+    background: white;
 }
 
 div.comment_date {
@@ -461,4 +505,46 @@ div.modify_article > ul {
 
 #margin_form {
     margin-bottom: 5.5%;
+}
+
+div.search_container {
+    text-align: center;
+    margin: 1%;
+}
+
+div.search_container > input[type=text] {
+    width: 20%;
+    padding: 0.5%;
+    font-size: 120%;
+}
+
+div.search_container > select {
+    font-size: 120%;
+    padding: 0.5%;
+    background: white;
+    color: #92A88C;
+    width: 180;
+}
+
+#search_button {
+    width: auto;
+    margin-left: 40px;
+    padding-inline: 0.5%;
+}
+
+div.search_container > a {
+    font-size: 120%;
+    margin-left: 3%;
+}
+
+blockquote > p {
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+}
+
+div.no_articles {
+    text-align: center;
+    margin: 100px;
+    font-size: x-large;
 }
